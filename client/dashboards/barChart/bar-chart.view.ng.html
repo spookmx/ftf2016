@@ -1,0 +1,7 @@
+<div class="ct-bar-container" layout="row">
+  <chartist class="ct-chart ct-bar-container" chartist-data="data" chartist-chart-type="Bar" chartist-chart-options="chartOptions"></chartist>
+  <div ng-if="tile.visualization.showValue" layout="row" layout-align="center end" class="tile-value-container">
+    <span class="tile-value" count-to="{{data.labels[data.labels.length-1]}}" value="{{data.labels[data.labels.length-2]}}" duration="0.5"></span>
+    <span class="tile-unit">{{tile.unit}}</span>
+  </div>
+</div>

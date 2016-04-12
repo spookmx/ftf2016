@@ -17,7 +17,7 @@ angular.module('digitalsignageApp')
       return obj;
     }
   });
-  $scope.chartOptions = {
+  $scope.lineChartOptions = {
     axisX: {
       showLabel: false,
       showGrid: false
@@ -39,6 +39,34 @@ angular.module('digitalsignageApp')
       left: 0
     }
   };
+
+  $scope.barChartOptions = {
+    axisX: {
+      showLabel: false,
+      showGrid: false
+    },
+    axisY: {
+      offset: 40,
+      position: 'end'
+    },
+    width: '100%',
+    height: '100%',
+    chartPadding: {
+      top: 0,
+      right: 0,
+      bottom: 25,
+      left: 0
+    }
+  };
+
+  $scope.gaugeChartOptions = {
+    donut: true,
+    donutWidth: 30,
+    startAngle: 270,
+    total: 200,
+    showLabel: false,
+    height: '200%'
+  }
 
   $scope.gridReady = function($event){
     if($event.performance.tileCount > 0){

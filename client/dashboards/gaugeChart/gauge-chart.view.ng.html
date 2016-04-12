@@ -1,0 +1,7 @@
+<div class="ct-line-container" layout="column">
+  <chartist class="ct-chart gauge-chart" chartist-data="gaugeData" chartist-chart-type="Pie" chartist-chart-options="gaugeOptions"></chartist>
+  <div ng-if="tile.visualization.showValue" layout="row" layout-align="center center" class="gauge-value-container">
+    <span class="tile-value" count-to="{{data.labels[data.labels.length-1]}}" value="{{data.labels[data.labels.length-2]}}" duration="0.5"></span>
+    <span class="tile-unit">{{tile.unit}}</span>
+  </div>
+</div>

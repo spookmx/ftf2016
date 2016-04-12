@@ -25,24 +25,26 @@
     <md-card-content>
       <md-grid-list class="grid-animate" md-cols="4" md-row-height="2:1" md-gutter="8px" md-on-layout="gridReady($event)">
         <md-grid-tile ng-repeat="tile in dashboard.tiles | orderBy:'order'" md-rowspan="{{tile.height}}" md-colspan="{{tile.width}}">
-          <div ng-if="parametersReady" class="ct-line-container animate-3d" layout="row">
-            <chartist class="ct-chart ct-line-container" chartist-data="parameters[tile.parameter].chartdata" chartist-chart-type="Line" chartist-chart-options="chartOptions"></chartist>
-            <div layout="row" layout-align="center end" class="tile-value-container">
-              <span class="tile-value">{{parameters[tile.parameter].values[parameters[tile.parameter].values.length-1]}}</span>
-              <span class="tile-unit">{{tile.unit}}</span>
+          <div class="tile-wrapper" layout="column">
+            <div ng-if="tile.visualization.type=='line-chart'" class="tile-chart-container" flex layout-fill>
+              <line-chart ng-if="parametersReady" class="socials-card" data="parameters[tile.parameter].chartdata" tile="tile" chart-options="lineChartOptions"></line-chart>
+            </div>
+            <div ng-if="tile.visualization.type=='bar-chart'" class="tile-chart-container" flex layout-fill>
+              <bar-chart ng-if="parametersReady" class="socials-card" data="parameters[tile.parameter].chartdata" tile="tile" chart-options="barChartOptions"></bar-chart>
+            </div>
+            <div ng-if="tile.visualization.type=='gauge-chart'" class="tile-chart-container" flex layout-fill>
+              <gauge-chart ng-if="parametersReady" class="socials-card" data="parameters[tile.parameter].chartdata" tile="tile" chart-options="gaugeChartOptions"></gauge-chart>
+            </div>
+
+            <div class="tile-footer" layout="row" layout-align="start center">
+                <md-button class="md-icon-button" ng-click="tileSettings(tile)" aria-label="Settings">
+                  <md-icon md-svg-icon="action:ic_settings_24px"></md-icon>
+                </md-button>
+                <p>{{tile.title}}</p>
             </div>
           </div>
-          <md-grid-tile-footer>
-            <div layout="row" layout-align="start center">
-              <md-button class="md-icon-button" ng-click="tileSettings(tile)" aria-label="Settings">
-                <md-icon md-svg-icon="action:ic_settings_24px"></md-icon>
-              </md-button>
-              <p>{{tile.title}}</p>
-            </div>
-          </md-grid-tile-footer>
         </md-grid-tile>
       </md-grid-list>
-
     </md-card-content>
   </md-card>
 </div>
