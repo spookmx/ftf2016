@@ -1,0 +1,78 @@
+.socials-detail{
+  overflow-x: hidden;
+  overflow-y: hidden;
+  cursor: none;
+}
+.tweet-text{
+  padding-top: 10px;
+}
+.tweet-actions{
+  margin-left: -16px;
+}
+.tweet-card{
+  padding-left: 16px;
+  margin-bottom: 5px;
+  background: rgba(255, 255, 255, 0.8);
+}
+.ng-child-padding{
+  padding: 1rem;
+}
+.socials-grid{
+  height: 100%;
+}
+.socials-body{
+  height: inherit;
+}
+.socials-header{
+  padding-bottom: 0rem!important;
+}
+.ng-transparent-bkg{
+  background-color: rgba(255,255,255, 0.7);
+}
+.socials-header-content{
+  background-color: #29A6DE;
+}
+.socials-main-title{
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+.socials-avatar{
+  border-radius: 50%;
+  box-sizing: content-box;
+  width: 4rem;
+  height: 4rem;
+  margin-top: -30%;
+}
+.socials-user-screen-name{
+  color: #fff;
+  font-size: 1.1rem;
+}
+.socials-user-area{
+  background-color: #29A6DE;
+}
+.socials-content-area{
+  background: rgba(255, 255, 255, .5);
+  background-size: cover;
+  background-position: center center;
+}
+.socials-content-text{
+  font-weight: 500;
+  text-shadow: 0rem 0rem 0.2rem rgba(255, 255, 255, 1);
+}
+
+.socials-card.ng-enter, .socials-card.ng-leave {
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+
+.socials-card.ng-enter,
+.socials-card.ng-leave.ng-leave-active {
+  transform: perspective(2000px) rotate3d(1, 0, 0, 90deg) translateY(-20rem);
+  opacity:0;
+}
+
+.socials-card.ng-leave,
+.socials-card.ng-enter.ng-enter-active {
+  transform: perspective(2000px) rotate3d(1, 0, 0, 0);
+  opacity:1;
+}

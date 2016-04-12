@@ -1,0 +1,55 @@
+<md-dialog aria-label="Dashboard Settings"  ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Settings</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="close()">
+          <md-icon md-svg-icon="content:ic_clear_24px" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-input-container md-no-float class="md-block">
+          <input ng-model="dashboard.name" placeholder="Name">
+        </md-input-container>
+        <md-list ng-cloak>
+          <md-list-item class="md-2-line" ng-repeat="parameter in parameters">
+            <div class="md-list-item-text">
+              <p ng-hide="parameter.edit">{{parameter.name}}</p>
+              <md-input-container ng-show="parameter.edit">
+                <input ng-setfocus="parameter.edit" ng-blur="!parameter.name?parameter.name='Parameter':null" ng-model="parameter.name" placeholder="Parameter Name" required>
+              </md-input-container>
+              <p>{{parameter._id}} </p>
+            </div>
+            <div class="md-secondary">
+              <md-button ng-hide="parameter.edit" class="md-icon-button" ng-click="parameter.edit=true" aria-label="Edit">
+                <md-icon md-svg-icon="content:ic_create_24px"></md-icon>
+              </md-button>
+              <md-button ng-show="parameter.edit" class="md-icon-button" ng-disabled="!parameter.name" ng-click="save(parameter)" aria-label="Edit">
+                <md-icon md-svg-icon="content:ic_save_24px"></md-icon>
+              </md-button>
+              <md-button class="md-icon-button" ng-click="remove(parameter)" aria-label="Remove">
+                <md-icon md-svg-icon="action:ic_delete_24px"></md-icon>
+              </md-button>
+            </div>
+            <md-divider></md-divider>
+          </md-list-item>
+        </md-list>
+        <md-input-container>
+          <input ng-model="newParameterTitle" placeholder="Add Parameter">
+        </md-input-container>
+        <md-button ng-disabled="!newParameterTitle" class="md-secondary md-icon-button" ng-click="add()" aria-label="Add">
+          <md-icon md-svg-icon="content:ic_add_box_24px"></md-icon>
+        </md-button>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="close()">
+       Close
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

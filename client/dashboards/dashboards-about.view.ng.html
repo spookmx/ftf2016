@@ -1,0 +1,84 @@
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.js" type="text/javascript"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css" type="text/css">
+<div layout="column">
+<md-content layout-padding>
+        <span class="md-headline">About Dashboards</span>
+
+      <p>
+        The IoT Dashboard is a simple tool to visualize data from embedded devices. It is integrated by a RESTful API (Working in MQTT, Websockets and COAP) that captures the data and a visualization web front-end that displays the data captured.
+      </p>
+      <h3>Dashboard</h3>
+      <p>
+        The dashboard is the main entity that enables the capture and visualization of the data, it can have several parameters associated to it and multiple tiles with visualizations. Every tile can be associated more than one parameter, and is assigned to the dashboard within an array of 4X4, having the ability to display up to 15 tiles at the same time in a single screen.
+      </p>
+      <p>
+        Every dashboard is associated to an specific ID and every parameter is associated to a dashboard and to an specific ID, enabling the reception of the data referencing the combination of dashboard and parameter.
+      </p>
+      <h3>RESTFul API</h3>
+      <p>
+        To send data to the dahsboard using the RESTful API you need to add a JSON data structure to the body of a POST request.
+      </p>
+      <p>
+        Assuming that we have a dashboard with "eeo4sZT3FoxfhvgEp" as the ID and the parameters pressure and temperature with "y5cgKuKdWbfrdFHLM" and "Qnggq32raHDeL9wdf" as their corresponding IDs. And we need to send 10 and 20 as the values of the parameters. We need to integrate a JSON structure like the following:
+      </p>
+      <div class="code-block">
+        <pre class="prettyprint">
+          <code class="language-javascript">
+{
+  'dashboard':'eeo4sZT3FoxfhvgEp',
+  'parameters':
+    [
+      {
+        'r':'y5cgKuKdWbfrdFHLM',
+        'v':10
+      },
+      {
+        'r':'Qnggq32raHDeL9wdf',
+        'v':20
+      }
+    ]
+}
+          </code>
+        </pre>
+      </div>
+      <p>
+        The current dashboard cloud instance is available only on an internal IP: http://10.81.26.68:3000
+      </p>
+      <p>
+        There are several ways to send this POST message, using <a href="https://curl.haxx.se/libcurl/">libcurl</a> a free and easy-to-use client-side URL transfer library, the code would look like this:
+      </p>
+      <div class="code-block">
+        <pre class="prettyprint">
+          <code class="language-c">
+int main() {
+
+  CURL *curl_handle;
+  CURLcode res;
+
+  static const char *postthis="{\"dashboard\":\"eeo4sZT3FoxfhvgEp\","
+                                "\"parameters\":[{\"r\":\"y5cgKuKdWbfrdFHLM\",\"v\":\"10\"},{\"r\":\"Qnggq32raHDeL9wdf\",\"v\":\"20\"}]}";
+  curl_global_init(CURL_GLOBAL_ALL);
+  curl_handle = curl_easy_init();
+
+  if(curl_handle) {
+
+    curl_easy_setopt(curl_handle, CURLOPT_URL, "http://10.81.26.68:3000/api/beta/parameters/");
+    curl_easy_setopt(curl_handle, CURLOPT_POSTFIELDS, postthis);
+
+    curl_easy_setopt(curl_handle, CURLOPT_POSTFIELDSIZE, (long)strlen(postthis));
+    curl_easy_setopt(curl_handle, CURLOPT_WRITEHEADER, stdout);
+    curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, stdout);
+
+    res = curl_easy_perform(curl_handle);
+    if(res != CURLE_OK)
+    fprintf(stderr, "curl_easy_perform() failed: %s\n",
+    curl_easy_strerror(res));
+    curl_easy_cleanup(curl_handle);
+    return 0;
+  }
+}
+          </code>
+        </pre>
+      </div>
+</md-content>
+</div>

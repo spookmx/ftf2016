@@ -1,0 +1,97 @@
+<md-dialog aria-label="Content Details"  ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Content Card</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-icon="content:ic_clear_24px" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block">
+          <label>Name</label>
+          <input ng-model="content.name">
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Type</label>
+          <md-select ng-model="content.type">
+            <md-option value="image">Image</md-option>
+            <md-option value="video">Video</md-option>
+            <md-option value="html">HTML</md-option>
+          </md-select>
+        </md-input-container>
+        <div ng-show="content.type=='image'" layout="row">
+          <md-whiteframe ng-hide="content.reference || uploading" flex class="md-whiteframe-z1" layout="column">
+              <div flex>
+                  <div ngf-drop ngf-select
+                       ngf-change="addImages($files)"
+                       ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box"
+                       ngf-multiple="false" ngf-allow-dir="false" ngf-accept="'image/*'"
+                       ngf-drop-available="true"
+                       layout="row"
+                       layout-align="center center">
+                    <div>Click or Drag and Drop Image in Here to Upload</div>
+                  </div>
+              </div>
+          </md-whiteframe>
+          <div flex ng-show="uploading && !tempImage.isUploaded">
+            Uploading...
+          </div>
+          <md-card flex ng-show="tempImage.isUploaded || content.reference" class="md-image-container-sm">
+            <img ng-src="{{image.url()}}" alt="Image">
+            <md-card-actions layout="row" layout-align="end center">
+              <md-button ng-click="removeImage()" class="md-warn">
+                <md-icon md-svg-icon="action:ic_delete_24px"></md-icon> Remove
+              </md-button>
+            </md-card-actions>
+          </md-card>
+        </div>
+
+        <!-- ################# Video Upload Process START ######################-->
+        <div ng-show="content.type=='video'" layout="row">
+          <md-whiteframe ng-hide="content.reference || uploading" flex class="md-whiteframe-z1" layout="column">
+              <div flex>
+                  <div ngf-drop ngf-select
+                       ngf-change="addVideos($files)"
+                       ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box"
+                       ngf-multiple="false" ngf-allow-dir="false" ngf-accept="'video/*'"
+                       ngf-drop-available="true"
+                       layout="row"
+                       layout-align="center center">
+                    <div>Click or Drag and Drop Video in Here to Upload</div>
+                  </div>
+              </div>
+          </md-whiteframe>
+          <div flex ng-show="uploading && !tempVideo.isUploaded">
+            Uploading...
+          </div>
+          <md-card flex ng-show="tempVideo.isUploaded || content.reference" class="md-image-container-sm">
+            <video controls autoplay ng-src="{{video.url()}}" height="200">
+              Your browser does not support the video tag.
+            </video>
+            <md-card-actions layout="row" layout-align="end center">
+              <md-button ng-click="removeVideo()" class="md-warn">
+                <md-icon md-svg-icon="action:ic_delete_24px"></md-icon> Remove
+              </md-button>
+            </md-card-actions>
+          </md-card>
+        </div>
+        <!-- ################# Video Upload Process END ######################-->
+
+
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()">
+       Cancel
+      </md-button>
+      <md-button ng-disabled="!content.name" ng-click="save(content)">
+        Save
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

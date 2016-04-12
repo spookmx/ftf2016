@@ -1,0 +1,56 @@
+<md-dialog aria-label="Tile Settings"  ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{tile.title}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="close()">
+          <md-icon md-svg-icon="content:ic_clear_24px" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-input-container md-no-float class="md-block">
+          <input ng-model="tile.title" placeholder="Title">
+        </md-input-container>
+        <div layout="row">
+          <md-input-container flex>
+            <label>Height</label>
+            <input type="number" min="1" max="4" ng-model="tile.height" aria-label="Height">
+          </md-input-container>
+          <md-input-container flex>
+            <label>Width</label>
+            <input type="number" min="1" max="4" ng-model="tile.width" aria-label="Width">
+          </md-input-container>
+          <md-input-container flex>
+            <label>Order</label>
+            <input type="number" min="0" max="{{tilesMax}}" ng-model="tileProto" aria-label="Order">
+          </md-input-container>
+        </div>
+        <div layout="row">
+          <md-input-container>
+            <label>Selected Parameter</label>
+            <md-select ng-model="tile.parameter">
+              <md-option ng-repeat="parameter in parameters" value="{{parameter._id}}">
+                {{parameter.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container>
+            <input ng-model="tile.unit" placeholder="Units">
+          </md-input-container>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button class="md-warn" ng-click="delete()">
+       Delete
+      </md-button>
+      <md-button ng-click="close()">
+       Close
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

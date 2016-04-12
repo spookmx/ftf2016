@@ -1,0 +1,44 @@
+<div layout="column">
+  <md-card>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">Dashboards</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-actions layout="row" layout-align="start center">
+      <md-card-icon-actions>
+        <md-button ng-click="generalSettings()" aria-label="Settings">
+          <md-icon md-svg-icon="action:ic_settings_24px"></md-icon> General Settings
+        </md-button>
+        <md-button ng-click="addNew($event)" aria-label="Add New">
+          <md-icon md-svg-icon="content:ic_add_box_24px"></md-icon> Add New
+        </md-button>
+        <md-button ng-click="selectMode()" ng-class="{'md-accent':selectEnabled}" aria-label="Select">
+          <md-icon md-svg-icon="action:ic_view_list_24px"></md-icon> Select Mode
+        </md-button>
+        <md-button ng-show="selectEnabled" class="select-actions md-accent" aria-label="Copy">
+          <md-icon md-svg-icon="content:ic_content_copy_24px"></md-icon> Copy
+        </md-button>
+        <md-button ng-show="selectEnabled" class="select-actions md-accent" aria-label="Remove">
+          <md-icon md-svg-icon="action:ic_delete_24px"></md-icon> Remove
+        </md-button>
+        <md-button ng-show="selectEnabled" class="select-actions md-accent" aria-label="View Mode">
+          <md-icon md-svg-icon="av:ic_playlist_play_24px"></md-icon> View Mode
+        </md-button>
+      </md-card-icon-actions>
+    </md-card-actions>
+    <md-card-content>
+      <md-list ng-cloak>
+        <md-list-item ng-repeat="dashboard in dashboards" ng-click="editDashboard(this)">
+          <md-checkbox ng-show="$parent.selectEnabled" ng-model="dashboard.selected" class="checkbox" ng-click="$event.stopPropagation();"></md-checkbox>
+          <p>{{dashboard.name}}</p>
+          <md-button class="md-secondary md-icon-button" ng-click="settings(dashboard)" aria-label="Settings">
+            <md-icon md-svg-icon="action:ic_settings_24px"></md-icon>
+          </md-button>
+          <md-divider></md-divider>
+        </md-list-item>
+      </md-list>
+    </md-card-content>
+    <!-- <p>Total number of dashboards: {{dashboardsCount}}</p> -->
+  </md-card>
+</div>

@@ -1,0 +1,30 @@
+<md-dialog aria-label="Add New Dashboard"  ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>New Dashboard</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-icon="content:ic_clear_24px" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block">
+          <label>Dashboard Name</label>
+          <input ng-model="dashboardName">
+        </md-input-container>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()">
+       Cancel
+      </md-button>
+      <md-button ng-disabled="!dashboardName" ng-click="createDashboard(dashboardName)">
+        Add
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

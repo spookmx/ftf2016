@@ -1,0 +1,48 @@
+<div class="dashboard-detail" layout="column">
+  <md-card>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">{{dashboard.name}}</span>
+        <small>Last Updated: {{dashboard.lastUpdated | date:'medium'}}</small>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-actions layout="row" layout-align="start center">
+      <md-card-icon-actions>
+        <md-button ng-click="addWidget()" aria-label="Add Widget">
+          <md-icon md-svg-icon="content:ic_add_box_24px"></md-icon> Add Tile
+        </md-button>
+        <md-button ng-click="generalSettings()" aria-label="Settings">
+          <md-icon md-svg-icon="action:ic_settings_24px"></md-icon> Settings
+        </md-button>
+        <md-button ng-click="save()" aria-label="Save">
+          <md-icon md-svg-icon="content:ic_save_24px"></md-icon> Save
+        </md-button>
+        <md-button ng-click="remove()" aria-label="Remove">
+          <md-icon md-svg-icon="action:ic_delete_24px"></md-icon> Remove
+        </md-button>
+      </md-card-icon-actions>
+    </md-card-actions>
+    <md-card-content>
+      <md-grid-list class="grid-animate" md-cols="4" md-row-height="2:1" md-gutter="8px" md-on-layout="gridReady($event)">
+        <md-grid-tile ng-repeat="tile in dashboard.tiles | orderBy:'order'" md-rowspan="{{tile.height}}" md-colspan="{{tile.width}}">
+          <div ng-if="parametersReady" class="ct-line-container animate-3d" layout="row">
+            <chartist class="ct-chart ct-line-container" chartist-data="parameters[tile.parameter].chartdata" chartist-chart-type="Line" chartist-chart-options="chartOptions"></chartist>
+            <div layout="row" layout-align="center end" class="tile-value-container">
+              <span class="tile-value">{{parameters[tile.parameter].values[parameters[tile.parameter].values.length-1]}}</span>
+              <span class="tile-unit">{{tile.unit}}</span>
+            </div>
+          </div>
+          <md-grid-tile-footer>
+            <div layout="row" layout-align="start center">
+              <md-button class="md-icon-button" ng-click="tileSettings(tile)" aria-label="Settings">
+                <md-icon md-svg-icon="action:ic_settings_24px"></md-icon>
+              </md-button>
+              <p>{{tile.title}}</p>
+            </div>
+          </md-grid-tile-footer>
+        </md-grid-tile>
+      </md-grid-list>
+
+    </md-card-content>
+  </md-card>
+</div>

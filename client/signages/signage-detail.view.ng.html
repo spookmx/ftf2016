@@ -1,0 +1,23 @@
+<div layout="row" flex layout-fill class="signage-detail">
+  <div class="signage-detail" layout="column" flex="75" layout-fill>
+
+    <div class="signage-content-container" flex="75" layout="column">
+      <div class="signage-content-inner md-whiteframe-1dp" flex layout="column">
+        <div imgcontainer url="{{imageNew}}" class="socials-card" ng-if="showingImage" flex></div>
+        <video autoplay ng-src="{{videoNew}}" class="socials-card video-full" ng-if="showingVideo" flex></video>
+      </div>
+    </div>
+
+    <div flex="25" layout="column" class="signage-banner-container md-whiteframe-1dp">
+        <div ng-style="bannerNew" class="socials-card cover" ng-if="showingBanner" flex layout-fill></div>
+    </div>
+
+  </div>
+  <div class="signage-social-container" flex="25" layout-fill layout="column">
+    <md-grid-list class="socials-grid" md-row-height="fit" md-cols="1" md-gutter="1rem">
+      <md-grid-tile ng-repeat="tweet in tweetlist" md-rowspan="1" md-colspan="1">
+          <mini-social-card ng-if="!tweet.changing" tweet="tweet.tweet"></mini-social-card>
+      </md-grid-tile>
+    </md-grid-list>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+.signage-detail{
+  overflow-x: hidden;
+  overflow-y: hidden;
+  cursor: none;
+}
+
+.signage-content-container{
+  padding-bottom: 1rem;
+}
+
+.signage-content-inner{
+  background: rgba(255,255,255,.7);
+}
+
+.signage-banner-container{
+  background: rgba(255,255,255,.7);
+}
+.signage-detail{
+  padding: 1rem;
+}
+.video-full{
+  object-fit: fill;
+}
+.banner-full{
+  height:100%;
+}
+.cover{
+  background-size: cover;
+}
+
+.signage-social-container{
+  padding-top: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+}
