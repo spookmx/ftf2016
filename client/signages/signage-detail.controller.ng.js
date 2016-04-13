@@ -90,19 +90,19 @@ angular.module('digitalsignageApp')
     Object.keys($scope.tweetlist).forEach(function(value, key, map){
       $scope.tweetlist[key].tweet = $scope.tweets[key].tweet;
     });
-    $scope.tweetsCount > $scope.targetTweet ? $timeout(changeCard, $scope.getRandomInt()) : null;
+    $scope.tweetsCount > $scope.targetTweet ? $timeout(changeCard, $scope.getRandomInt(10000, 7000)) : null;
   };
   $scope.targetCard = 0;
   $scope.changingCard = false;
-  $scope.targetTweet = 4;
+  $scope.targetTweet = 3;
   function changeCard() {
     if($scope.changingCard){
       $scope.tweetlist[$scope.targetCard].tweet = $scope.tweets[$scope.targetTweet].tweet;
       $scope.tweetlist[$scope.targetCard].changing = false;
       $scope.changingCard = false;
       $scope.tweetsCount-1 > $scope.targetTweet ? $scope.targetTweet++ : $scope.targetTweet=0;
-      $scope.targetCard < 3 ? $scope.targetCard++ : $scope.targetCard=0;
-      $timeout(changeCard,  $scope.getRandomInt());
+      $scope.targetCard < 2 ? $scope.targetCard++ : $scope.targetCard=0;
+      $timeout(changeCard,  $scope.getRandomInt(10000, 7000));
     }else{
       $scope.tweetlist[$scope.targetCard].changing = true;
       $scope.changingCard = true;
@@ -110,23 +110,23 @@ angular.module('digitalsignageApp')
     }
   }
 
-  $scope.getRandomInt = function() {
-    return Math.floor(Math.random() * (10000 - 7000 + 1)) + 7000;
+  $scope.getRandomInt = function(max, min) {
+    return Math.floor(Math.random() * (max - min)) + min;
   };
 
   $scope.tweetlist =[
     {
-      name:"Uno",
-      changing: false
+      _id:0,
+      changing: false,
+      row:1
     },{
-      name:"Dos",
-      changing: false
+      _id:1,
+      changing: false,
+      row:2
     },{
-      name:"Tres",
-      changing: false
-    },{
-      name:"Cuatro",
-      changing: false
+      _id:2,
+      changing: false,
+      row:1
     }
   ];
 

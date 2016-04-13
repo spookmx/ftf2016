@@ -15,8 +15,8 @@
   </div>
   <div class="signage-social-container" flex="25" layout-fill layout="column">
     <md-grid-list class="socials-grid" md-row-height="fit" md-cols="1" md-gutter="1rem">
-      <md-grid-tile ng-repeat="tweet in tweetlist" md-rowspan="1" md-colspan="1">
-          <mini-social-card ng-if="!tweet.changing" tweet="tweet.tweet"></mini-social-card>
+      <md-grid-tile ng-repeat="tweet in tweetlist" md-rowspan="{{tweet.row}}" md-colspan="1">
+          <responsive-card ng-if="!tweet.changing" tweet="tweet.tweet"></responsive-card>
       </md-grid-tile>
     </md-grid-list>
   </div>
