@@ -60,7 +60,10 @@ angular.module('digitalsignageApp')
       $mdDialog.cancel();
     };
     $scope.createDashboard = function(name) {
-      Dashboards.insert(name);
+      var newDashboard = {};
+      newDashboard.name = name;
+      Dashboards.insert(newDashboard);
+      $mdDialog.cancel();
     };
   }
 
