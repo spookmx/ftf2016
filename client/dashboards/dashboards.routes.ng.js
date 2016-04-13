@@ -6,7 +6,12 @@ angular.module('digitalsignageApp')
   .state('dashboards-list', {
     url: '/dashboards',
     templateUrl: 'client/dashboards/dashboards-list.view.ng.html',
-    controller: 'DashboardsListCtrl'
+    controller: 'DashboardsListCtrl',
+    resolve: {
+      currentUser: ['$meteor', function($meteor) {
+        return $meteor.requireUser();
+      }]
+    }
   })
   .state('dashboards-about', {
     url: '/dashboards/about',
