@@ -73,7 +73,6 @@ angular.module('digitalsignageApp')
 
   $scope.subscribe('selectedtweets', () => {return []}, {
     onReady: function () {
-      $scope.tweetsReady();
     }
   });
 
@@ -86,12 +85,30 @@ angular.module('digitalsignageApp')
     }
   });
 
-  $scope.tweetsReady = function(){
-    Object.keys($scope.tweetlist).forEach(function(value, key, map){
-      $scope.tweetlist[key].tweet = $scope.tweets[key].tweet;
-    });
-    $scope.tweetsCount > $scope.targetTweet ? $timeout(changeCard, $scope.getRandomInt(10000, 7000)) : null;
-  };
+  $scope.tweetProcessStarted = false;
+  $scope.tweetCountReady = false;
+
+  $scope.$watch('tweetsCount', function() {
+    if($scope.tweetsCount){
+      $scope.tweetCountReady = true;
+      !$scope.tweetProcessStarted ? startTweetRotation() : null;
+    }
+  });
+
+  $scope.$watchCollection('tweets', function() {
+    startTweetRotation();
+  });
+
+  function startTweetRotation(){
+    if($scope.tweetCountReady && $scope.tweets.length == $scope.tweetsCount){
+      $scope.tweetProcessStarted = true;
+      Object.keys($scope.tweetlist).forEach(function(value, key, map){
+        $scope.tweetlist[key].tweet = $scope.tweets[key].tweet;
+      });
+      $scope.tweetsCount > $scope.targetTweet ? $timeout(changeCard, getRandomInt(10000, 7000)) : null;
+    }
+  }
+
   $scope.targetCard = 0;
   $scope.changingCard = false;
   $scope.targetTweet = 3;
@@ -102,7 +119,7 @@ angular.module('digitalsignageApp')
       $scope.changingCard = false;
       $scope.tweetsCount-1 > $scope.targetTweet ? $scope.targetTweet++ : $scope.targetTweet=0;
       $scope.targetCard < 2 ? $scope.targetCard++ : $scope.targetCard=0;
-      $timeout(changeCard,  $scope.getRandomInt(10000, 7000));
+      $timeout(changeCard,  getRandomInt(10000, 7000));
     }else{
       $scope.tweetlist[$scope.targetCard].changing = true;
       $scope.changingCard = true;
@@ -110,9 +127,38 @@ angular.module('digitalsignageApp')
     }
   }
 
-  $scope.getRandomInt = function(max, min) {
-    return Math.floor(Math.random() * (max - min)) + min;
+  $timeout(changeLayout, getRandomInt(15000,10000));
+
+  function changeLayout(){
+    var targets = $scope.getSwappingTweets();
+    $scope.tweetlist[targets[0]._id].row = 1;
+    $scope.tweetlist[targets[1]._id].row = 2;
+    $timeout(changeLayout, getRandomInt(15000,10000));
+  }
+
+  $scope.getSwappingTweets = function(){
+    var tweetsWith2 = [];
+    angular.forEach($scope.tweetlist, function(value, key) {
+      if (value.row == 2) {
+          tweetsWith2.push(value);
+      }
+    });
+    var targets = [];
+    targets[0] = tweetsWith2[0];
+    var tweetsWith1 = [];
+    angular.forEach($scope.tweetlist, function(value, key) {
+      if (value.row == 1) {
+          tweetsWith1.push(value);
+      }
+    });
+    var t3n = getRandomInt(1,0);
+    targets[1] = tweetsWith1[t3n];
+    return targets;
   };
+
+  function getRandomInt(max, min) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
 
   $scope.tweetlist =[
     {
