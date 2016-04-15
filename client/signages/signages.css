@@ -33,6 +33,19 @@
   padding-right: 1rem;
   padding-bottom: 1rem;
 }
+
+.signage-social-header{
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  color: #fff;
+  font-size: 1.2rem;
+  height: 2.5rem;
+  background-color: #29A6DE;
+}
 .vertical-container{
   min-height: 500px;
+}
+.twitter-logo{
+  height: 50%;
+  padding-right: 1rem;
 }

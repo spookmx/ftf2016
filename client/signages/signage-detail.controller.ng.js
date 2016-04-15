@@ -163,7 +163,7 @@ angular.module('digitalsignageApp')
           tweetsWith1.push(value);
       }
     });
-    var t3n = getRandomInt(1,0);
+    var t3n = getRandomInt(2,0);
     targets[1] = tweetsWith1[t3n];
     return targets;
   };
@@ -253,7 +253,6 @@ angular.module('digitalsignageApp')
 
   $scope.$watch("bannerImage", function() {
     if($scope.bannerImage){
-      $scope.bannerPast = {'background-image': 'url(' + $scope.bannerImage.url() +')'};
       $scope.showingBanner = false;
       $timeout(function(){
         $scope.bannerNew = {'background-image': 'url(' + $scope.bannerImage.url() +')'};

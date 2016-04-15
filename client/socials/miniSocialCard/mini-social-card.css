@@ -1,0 +1,27 @@
+.socials-mini-user{
+  height: 2rem;
+  background-color: #29A6DE;
+}
+.socials-mini-content{
+  height: 6rem;
+}
+.socials-mini-text{
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-shadow: 0rem 0rem 0.2rem rgba(255, 255, 255, 1);
+}
+.socials-mini-text-container{
+  padding: 0.5rem;
+}
+.socials-mini-user-name{
+  padding-left: 0.5rem;
+  color: #fff;
+  font-size: 1rem;
+}
+.socials-avatar-mini{
+  border-radius: 50%;
+  box-sizing: content-box;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-top: -40%;
+}

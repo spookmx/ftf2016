@@ -23,6 +23,7 @@ angular.module('digitalsignageApp')
     }
   });
   $scope.content = content;
+  !$scope.content.temporary ? $scope.content.temporary = false : null; 
 
   $scope.$watch('content.temporary', function(){
     if($scope.content.temporary){

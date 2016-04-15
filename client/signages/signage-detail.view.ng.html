@@ -9,14 +9,23 @@
     </div>
 
     <div flex="25" layout="column" class="signage-banner-container md-whiteframe-1dp">
-        <div ng-style="bannerNew" class="socials-card cover" ng-if="showingBanner" flex layout-fill></div>
+      <div ng-if="showingBanner" class="socials-card" flex layout-fill layout="column">
+        <div ng-style="bannerNew" class="cover" flex layout-fill>
+        </div>
+      </div>
     </div>
 
   </div>
   <div class="signage-social-container" flex="25" layout-fill layout="column">
+    <div layout="row" layout-align="start center" class="signage-social-header md-whiteframe-1dp">
+      <img src="/images/twitter-logo.svg" class="twitter-logo">
+      <span>
+        #NXPFTF
+      </span>
+    </div>
     <md-grid-list class="socials-grid grid-animate" md-row-height="fit" md-cols="1" md-gutter="1rem">
       <md-grid-tile ng-repeat="tweet in tweetlist" md-rowspan="{{tweet.row}}" md-colspan="1">
-          <responsive-card ng-if="!tweet.changing" tweet="tweet.tweet"></responsive-card>
+          <mini-social-card ng-if="!tweet.changing" tweet="tweet.tweet"></mini-social-card>
       </md-grid-tile>
     </md-grid-list>
   </div>
