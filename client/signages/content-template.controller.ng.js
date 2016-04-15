@@ -24,9 +24,42 @@ angular.module('digitalsignageApp')
   });
   $scope.content = content;
 
+  $scope.$watch('content.temporary', function(){
+    if($scope.content.temporary){
+      if(!$scope.content.startDate){
+        $scope.content.startDate = new Date();
+        $scope.content.endDate = new Date(
+          $scope.content.startDate.getFullYear(),
+          $scope.content.startDate.getMonth(),
+          $scope.content.startDate.getDate()+1
+        );
+      }
+    }else{
+      $scope.content.startDate ? delete $scope.content.startDate : null;
+      $scope.content.endDate ? delete $scope.content.endDate : null;
+    }
+  });
+
+  $scope.$watch('content.startDate', function(){
+    if($scope.content.startDate){
+      $scope.endDateMin = new Date(
+        $scope.content.startDate.getFullYear(),
+        $scope.content.startDate.getMonth(),
+        $scope.content.startDate.getDate()+1
+      );
+      if($scope.content.startDate >= $scope.content.endDate){
+        $scope.content.endDate = new Date(
+          $scope.content.startDate.getFullYear(),
+          $scope.content.startDate.getMonth(),
+          $scope.content.startDate.getDate()+1
+        );
+      }
+    }
+  });
+
   $scope.cancel = function() {
     if($scope.tempImage && !content.reference){
-      //Remove TEMP image from image or viodeo from collection
+      //Remove TEMP image from image or video from collection
       // TO DO
     }
     $mdDialog.cancel();
@@ -41,7 +74,6 @@ angular.module('digitalsignageApp')
         $scope.video ? content.reference = $scope.video._id : content.reference = null;
         break;
     }
-
     if (content._id){
       //If this is a previously saved card
       var target = content._id;
@@ -70,6 +102,7 @@ angular.module('digitalsignageApp')
           }
         });
       }
+      $mdDialog.hide();
     }else{
       //If this is a new card
       Contents.insert(content);

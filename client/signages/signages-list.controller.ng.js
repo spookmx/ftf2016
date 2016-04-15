@@ -30,10 +30,14 @@ angular.module('digitalsignageApp')
     },
     banners: function()  {
       return Banners.find({});
+    },
+    categories: function()  {
+      return Categories.find({});
     }
   });
 
   $scope.subscribe('images');
+  $scope.subscribe('categories');
 
   $scope.subscribe('signages', function() {
     return [{
@@ -223,6 +227,43 @@ angular.module('digitalsignageApp')
         //When dialog closes
       });
     };
+
+    //###################################################### Category Methods
+
+      $scope.removeCategory = function(category) {
+        Categories.remove({_id: category._id});
+      };
+
+      $scope.addCategory = function(){
+        var newcategory = {};
+        $mdDialog.show({
+          locals:{
+            category: newcategory
+          },
+          controller: 'CategoryTemplateController',
+          templateUrl: 'client/signages/category-template.ng.html',
+          fullscreen: true
+        });
+      };
+
+
+      $scope.editCategory = function(category){
+        var clone = {};
+        angular.copy(category, clone);
+        $mdDialog.show({
+          locals:{
+            category: clone
+          },
+          controller: 'CategoryTemplateController',
+          templateUrl: 'client/signages/category-template.ng.html',
+          fullscreen: true
+        })
+        .then(function() {
+          //After dialog completes
+        }, function() {
+          //When dialog closes
+        });
+      };
 
 
   return $scope.$watch('orderProperty', function() {

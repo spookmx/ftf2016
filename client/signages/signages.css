@@ -33,3 +33,6 @@
   padding-right: 1rem;
   padding-bottom: 1rem;
 }
+.vertical-container{
+  min-height: 500px;
+}

@@ -49,7 +49,19 @@ angular.module('digitalsignageApp')
       return Signages.findOne({ _id: $stateParams.signageId });
     },
     contents: () => {
-      return Contents.find({});
+      return Contents.find({$or:[
+        {temporary: false},
+        {
+          $and:[
+            {
+              startDate: {$lte: new Date()}
+            },
+            {
+              endDate: {$gt: new Date()}
+            }
+          ]
+        }
+      ]});
     },
     content: () =>{
       return Contents.findOne({ _id: $scope.getReactively('selectedContent') });

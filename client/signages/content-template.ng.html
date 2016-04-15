@@ -15,6 +15,15 @@
           <label>Name</label>
           <input ng-model="content.name">
         </md-input-container>
+        <div layout="column">
+          <md-checkbox ng-model="content.temporary" aria-label="Temporary">
+            Temporary
+          </md-checkbox>
+          <div layout="row" ng-if="content.temporary">
+            <md-datepicker required ng-model="content.startDate" md-placeholder="Start Date"></md-datepicker>
+            <md-datepicker required md-min-date="endDateMin" ng-model="content.endDate" md-placeholder="End Date"></md-datepicker>
+          </div>
+        </div>
         <md-input-container class="md-block">
           <label>Type</label>
           <md-select ng-model="content.type">
