@@ -188,7 +188,7 @@ angular.module('digitalsignageApp')
     }
   ];
 
-  $scope.changeInterval = $interval(changeContent, 20000);
+
   $scope.bannerInterval = $interval(changeBanner, 35000);
 
   function changeContent() {
@@ -204,6 +204,7 @@ angular.module('digitalsignageApp')
 
   $scope.$watch("content", function() {
     if($scope.content){
+      $scope.changeInterval = $timeout(changeContent, $scope.content.duration*1000);
       switch ($scope.content.type) {
         case "image":
           $scope.selectedImage = $scope.content.reference;

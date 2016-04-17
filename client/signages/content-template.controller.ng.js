@@ -23,7 +23,23 @@ angular.module('digitalsignageApp')
     }
   });
   $scope.content = content;
-  !$scope.content.temporary ? $scope.content.temporary = false : null; 
+  !$scope.content.temporary ? $scope.content.temporary = false : null;
+  !$scope.content.duration ? $scope.content.duration = 10 : null;
+
+  $scope.durationDisabled = false;
+
+  $scope.$watch('video', function(){
+    if($scope.video){
+      $scope.videoPlayer = document.getElementById("video-player");
+      $scope.videoPlayer.ondurationchange=function(){
+        if($scope.videoPlayer.duration > 0){
+          $scope.durationDisabled = true;
+          $scope.content.duration = $scope.videoPlayer.duration;
+        }
+      };
+    }
+  });
+
 
   $scope.$watch('content.temporary', function(){
     if($scope.content.temporary){
