@@ -11,12 +11,12 @@
                 <input ng-model="target">
               </md-input-container>
               <div layout="row" layout-align="center center">
-                <md-button class="md-raised" ng-click="startStream(target)">Start</md-button>
-                <md-button class="md-raised" ng-click="stopStream()">Stop</md-button>
+                <md-button class="md-raised" ng-click="startStream(target)" ng-disabled="stream">Start</md-button>
+                <md-button class="md-raised" ng-click="stopStream()" ng-disabled="!stream">Stop</md-button>
                 <md-button class="md-raised" ng-click="clearStream()">Clear</md-button>
               </div>
             </section>
-            <div ng-show="tweetsstream" layout="row" layout-align="start center">
+            <div ng-show="stream" layout="row" layout-align="start center">
               <md-progress-circular md-mode="indeterminate"></md-progress-circular> <span>Streaming Tweets</span>
             </div>
 
@@ -31,7 +31,7 @@
                   </div>
                   <p class="md-caption">{{ tweet.tweet.text }}</p>
                   <div layout="row" class="tweet-actions">
-                    <md-button ng-show="!tweet.favorited" class="md-icon-button md-primary" aria-label="Favorite" ng-click="tweetFavorite(tweet.tweet)">
+                    <md-button ng-show="!tweet.favorited" class="md-icon-button md-primary" aria-label="Favorite" ng-click="tweetFavorite(tweet)">
                       <md-tooltip md-direction="top">
                         Favorite
                       </md-tooltip>

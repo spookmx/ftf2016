@@ -19,6 +19,8 @@ angular.module('digitalsignageApp')
   $scope.IsBannersReady = false;
   $scope.showing = true;
 
+  console.log($stateParams);
+
   $scope.subscribe('signages', () => {return []}, {
     onReady: function () {
       signagesReady();
@@ -302,6 +304,20 @@ angular.module('digitalsignageApp')
     }else{
       return false;
     }
+  }
+
+  //NFC Integration Functionality
+  $scope.attendee = {};
+  function showAgenda(vcard){
+    //VCard expected to be a string with the standard Vcard 3 format
+    $scope.attendee = parseVcard(vcard);
+    //attendee.fn holds attendee full name
+    $timeout.cancel($scope.changeInterval);
+    $scope.showingImage = false;
+    $scope.showingVideo = false;
+    $timeout(function(){
+      $scope.showingAgenda = true;
+    }, 500);
   }
 
 

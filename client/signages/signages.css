@@ -2,6 +2,7 @@
   overflow-x: hidden;
   overflow-y: hidden;
   cursor: none;
+  padding: 1rem;
 }
 
 .signage-content-container{
@@ -14,9 +15,6 @@
 
 .signage-banner-container{
   background: rgba(255,255,255,.7);
-}
-.signage-detail{
-  padding: 1rem;
 }
 .video-full{
   object-fit: fill;

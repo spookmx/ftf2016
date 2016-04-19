@@ -1,6 +1,7 @@
 Meteor.startup(function() {
   //Initialize Tweets Collection
   if(Tweets.find().count() === 0) {
+    console.log("Tweets");
     var tweets = [
       'Tweets Collection Init',
     ];
@@ -11,19 +12,6 @@ Meteor.startup(function() {
           createdAt: new Date()
         });
       }
-    });
-  }
-
-  //Initialize TweetStreams Collection
-  if(TweetsStreams.find().count() === 0) {
-    var tweetsstreams = [
-      'TweetsStreams Init',
-    ];
-    tweetsstreams.forEach(function(tweetsstream) {
-      TweetsStreams.insert({
-        stream: tweetsstream,
-        createdAt: new Date()
-      });
     });
   }
 
@@ -76,7 +64,7 @@ Meteor.startup(function() {
 
     TweetStreamNew = Meteor.bindEnvironment(function(user){
       console.log("New stream started for userID: "+user);
-      TweetsStreams.insert({
+      Streamst.insert({
        user: user,
        createdAt: new Date()
       });
@@ -105,7 +93,7 @@ Meteor.startup(function() {
       TweetStopStream: function () {
         user = this.userId;
         Streams["stream"+user].stop();
-        TweetsStreams.remove({user: this.userId});
+        Streamst.remove({user: this.userId});
         return "Twitter stream from "+user+" has stopped";
       },
       TweetClearStream: function () {

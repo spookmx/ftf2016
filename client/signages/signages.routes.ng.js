@@ -14,7 +14,7 @@ angular.module('digitalsignageApp')
     }
   })
   .state('signage-detail', {
-    url: '/signages/:signageId',
+    url: '/signages/:signageId?signageLocation',
     templateUrl: 'client/signages/signage-detail.view.ng.html',
     controller: 'SignageDetailCtrl',
     // resolve: {

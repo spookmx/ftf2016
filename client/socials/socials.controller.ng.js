@@ -5,6 +5,7 @@ angular.module('digitalsignageApp')
   $scope.viewName = 'Socials';
   $scope.subscribe('tweets');
   $scope.subscribe('selectedtweets');
+  $scope.subscribe('streamst');
   $scope.helpers({
     tweetsStream: () => {
       return Tweets.find({type:'stream'});
@@ -14,13 +15,9 @@ angular.module('digitalsignageApp')
     },
     selectedtweets: () => {
       return Selectedtweets.find({});
-    }
-  });
-
-  $scope.subscribe('tweetsstreams');
-  $scope.helpers({
-    tweetsstream: () => {
-      return TweetsStreams.findOne({});
+    },
+    stream: () => {
+      return Streamst.findOne({user:Meteor.userId()});
     }
   });
 

@@ -161,4 +161,36 @@ angular.module('digitalsignageApp')
     });
   };
 
+  $scope.fullScreen = function(){
+    if (document.documentElement.requestFullscreen) {
+    	document.documentElement.requestFullscreen();
+    } else if (document.documentElement.webkitRequestFullscreen) {
+    	document.documentElement.webkitRequestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+    	document.mozRequestFullScreen();
+    } else if (document.documentElement.msRequestFullscreen) {
+    	document.documentElement.msRequestFullscreen();
+    }
+  };
+
+  $scope.fullScreenMode = false;
+  $scope.checkFullScreen = function (){
+    if (
+    	document.fullscreenElement ||
+    	document.webkitFullscreenElement ||
+    	document.mozFullScreenElement ||
+    	document.msFullscreenElement
+    ) {
+      $scope.fullScreenMode = true;
+    }else{
+      $scope.fullScreenMode = false;
+    }
+    $scope.$apply();
+  };
+
+  document.addEventListener("fullscreenchange", $scope.checkFullScreen);
+  document.addEventListener("webkitfullscreenchange", $scope.checkFullScreen);
+  document.addEventListener("mozfullscreenchange", $scope.checkFullScreen);
+  document.addEventListener("MSFullscreenChange", $scope.checkFullScreen);
+
 });

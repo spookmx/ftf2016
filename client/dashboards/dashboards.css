@@ -1,3 +1,22 @@
+.dashboard-detail{
+  padding: 2rem;
+}
+.dashboard-wrapper{
+  padding: 1rem;
+  background: rgba(255,255,255,0.8);
+}
+.dashboard-header{
+  padding: 1rem;
+  background: white;
+}
+.dashboard-actions{
+}
+.dashboard-content{
+  margin-top: 1rem;
+}
+.tile-footer-padding{
+  padding-left: 1rem;
+}
 .ct-series-a .ct-line {
   stroke: none;
 }
@@ -14,10 +33,10 @@
 }
 .ct-area {
   stroke: none;
-  fill-opacity: .3;
+  fill-opacity: .5;
 }
 .ct-series-a .ct-bar{
-  stroke: rgba(0,0,0,0.3);
+  stroke: rgba(0,0,0,0.5);
 }
 .ct-bar{
   stroke-width: 5px;
@@ -60,11 +79,11 @@ md-grid-list md-grid-tile md-grid-tile-footer{
 }
 .tile-footer{
   height: 3vw;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.3);
 }
 
 .ct-series-b .ct-slice-donut {
-    stroke: rgba(0,0,0,0.2);
+    stroke: rgba(0,0,0,0.3);
 }
 .ct-series-a .ct-slice-donut {
     stroke: rgba(0,0,0,0.7);
