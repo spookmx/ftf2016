@@ -37,6 +37,9 @@
             <div ng-if="tile.visualization.type=='gauge-chart'" class="tile-chart-container" flex layout-fill>
               <gauge-chart ng-if="parametersReady" class="socials-card" data="parameters[tile.parameter].chartdata" tile="tile" chart-options="gaugeChartOptions"></gauge-chart>
             </div>
+            <div ng-if="tile.visualization.type=='rotational-circle'" class="tile-chart-container" flex layout-fill>
+              <rotational-circle ng-if="parametersReady" class="socials-card" data="parameters[tile.parameter].chartdata"></rotational-circle>
+            </div>
             <div class="tile-footer" layout="row" layout-align="start center">
                 <md-button class="md-icon-button" ng-click="tileSettings(tile)" aria-label="Settings" ng-if="!fullScreenMode">
                   <md-icon md-svg-icon="action:ic_settings_24px"></md-icon>

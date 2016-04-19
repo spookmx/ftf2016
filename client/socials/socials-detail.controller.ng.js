@@ -19,15 +19,29 @@ angular.module('digitalsignageApp')
     }
   });
 
-  $scope.$watch('tweetsCount',function(newValue, oldValue) {
-    if (newValue > 0) {
+  $scope.tweetProcessStarted = false;
+  $scope.tweetCountReady = false;
+
+  $scope.$watch('tweetsCount', function() {
+    if($scope.tweetsCount){
+      $scope.tweetCountReady = true;
+      !$scope.tweetProcessStarted ? startTweetRotation() : null;
+    }
+  });
+
+  $scope.$watchCollection('tweets', function() {
+    startTweetRotation();
+  });
+
+  function startTweetRotation(){
+    if($scope.tweetCountReady && $scope.tweets.length == $scope.tweetsCount){
+      $scope.tweetProcessStarted = true;
       Object.keys($scope.tweetlist).forEach(function(value, key, map){
         $scope.tweetlist[key].tweet = $scope.tweets[key].tweet;
       });
-      $scope.tweetsCount > $scope.targetTweet ? $timeout(changeCard, getRandomInt(10000,7000)) : null;
+      $scope.tweetsCount > $scope.targetTweet ? $timeout(changeCard, getRandomInt(10000, 7000)) : null;
     }
   }
-);
 
   $scope.targetCard = 0;
   $scope.changingCard = false;
