@@ -1,5 +1,18 @@
-<div class="rc-container" layout="column">
-  <div layout="row" layout-align="center center" class="rc-value-container">
+<div class="rc-container" layout="column" flex layout-fill>
+  <div layout="row" flex layout-fill>
+      <div flex></div>
+      <div ng-style="setWidth()" class="rc-main-wrapper">
+        <div class="rc-main-circle" layout="row" layout-align="center start" ng-style="{
+          '-webkit-transform': 'rotateZ('+data.labels[data.labels.length-1]+'deg)',
+          'transform': 'rotateZ('+data.labels[data.labels.length-1]+'deg)'
+        }">
+          <div class="rc-pointer">
+          </div>
+        </div>
+      </div>
+      <div flex></div>
+  </div>
+  <div layout="row" layout-align="center center" class="rc-value-container" ng-style="setFont()">
     <span class="rc-value" count-to="{{data.labels[data.labels.length-1]}}" value="{{data.labels[data.labels.length-2]}}" duration="0.5"></span>
     <span class="rc-value">&deg;</span>
   </div>

@@ -10,6 +10,16 @@ angular.module('digitalsignageApp')
     },
     replace: true,
     link: function($scope, elem, attrs) {
+      $scope.degrees = {
+        "-webkit-transform": "rotateZ("+$scope.data.labels[$scope.data.labels.length-1]+"deg)",
+        "transform": "rotateZ("+$scope.data.labels[$scope.data.labels.length-1]+"deg)"
+      };
+      $scope.setFont = function(){
+        return {"font-size":(elem.height()*0.3)};
+      };
+      $scope.setWidth = function(){
+        return {"width":elem.height()};
+      };
     }
   };
 });
