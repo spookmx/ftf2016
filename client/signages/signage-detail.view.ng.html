@@ -4,7 +4,7 @@
     <div class="signage-content-container" flex="75" layout="column">
       <div class="signage-content-inner md-whiteframe-1dp" flex layout="column">
         <div imgcontainer url="{{imageNew}}" class="socials-card" ng-if="showingImage" flex></div>
-        <video autoplay ng-src="{{videoNew}}" class="socials-card video-full" ng-if="showingVideo" flex></video>
+        <video id="video-player" ng-src="{{videoNew}}" class="socials-card video-full" ng-if="showingVideo" flex></video>
         <attendee-agenda attendee="{{attendee}}" ng-if="showingAgenda"></attendee-agenda>
       </div>
     </div>

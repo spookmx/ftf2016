@@ -19,8 +19,6 @@ angular.module('digitalsignageApp')
   $scope.IsBannersReady = false;
   $scope.showing = true;
 
-  console.log($stateParams);
-
   $scope.subscribe('signages', () => {return []}, {
     onReady: function () {
       signagesReady();
@@ -239,11 +237,16 @@ angular.module('digitalsignageApp')
 
   $scope.$watch("video", function() {
     if($scope.video){
+      $scope.videoPlayer ? $scope.videoPlayer.pause() : null;
       $scope.showingVideo = false;
       $scope.showingImage = false;
       $timeout(function(){
+        $scope.videoNew = "";
         $scope.videoNew = $scope.video.url();
         $scope.showingVideo = true;
+        $scope.$apply();
+        $scope.videoPlayer = document.getElementById("video-player");
+        $scope.videoPlayer.play();
       }, 500);
     }
   });
