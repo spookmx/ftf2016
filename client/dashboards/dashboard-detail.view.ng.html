@@ -40,6 +40,9 @@
             <div ng-if="tile.visualization.type=='rotational-circle'" class="tile-chart-container" flex layout-fill>
               <rotational-circle ng-if="parametersReady" class="socials-card" data="parameters[tile.parameter].chartdata"></rotational-circle>
             </div>
+            <div ng-if="tile.visualization.type=='rotational-logo'" class="tile-chart-container" flex layout-fill>
+              <rotational-logo ng-if="parametersReady" class="socials-card" data="parameters[tile.parameter].chartdata"></rotational-logo>
+            </div>
             <div class="tile-footer" layout="row" layout-align="start center">
                 <md-button class="md-icon-button" ng-click="tileSettings(tile)" aria-label="Settings" ng-if="!fullScreenMode">
                   <md-icon md-svg-icon="action:ic_settings_24px"></md-icon>
