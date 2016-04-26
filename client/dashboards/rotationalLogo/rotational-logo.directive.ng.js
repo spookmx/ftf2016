@@ -13,6 +13,12 @@ angular.module('digitalsignageApp')
       $scope.setFont = function(){
         return {"font-size":(elem.height()*0.03)};
       };
+      $scope.setWidth = function(){
+        return {"width":elem.height()};
+      };
+      $scope.setWidthMargin = function(){
+        return {"width":elem.height(), "margin-top":elem.height()*0.5};
+      };
     }
   };
 });

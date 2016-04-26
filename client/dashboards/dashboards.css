@@ -1,13 +1,14 @@
 .dashboard-detail{
   padding: 2rem;
+  color: #677178;
 }
 .dashboard-wrapper{
   padding: 1rem;
-  background: rgba(255,255,255,0.8);
+  background: white;
 }
 .dashboard-header{
   padding: 1rem;
-  background: white;
+  background: #EFEFF1;
 }
 .dashboard-actions{
 }
@@ -29,14 +30,14 @@
   height: 100%;
 }
 .ct-series-a .ct-area, .ct-series-a .ct-slice-pie {
-  fill: black;
+  fill: #73B4D9;
+  fill-opacity: 1;
 }
 .ct-area {
   stroke: none;
-  fill-opacity: .5;
 }
 .ct-series-a .ct-bar{
-  stroke: rgba(0,0,0,0.5);
+  stroke: #73B4D9;
 }
 .ct-bar{
   stroke-width: 5px;
@@ -79,12 +80,12 @@ md-grid-list md-grid-tile md-grid-tile-footer{
 }
 .tile-footer{
   height: 3vw;
-  background: rgba(0,0,0,0.3);
+  background: #EFEFF1;
 }
 
 .ct-series-b .ct-slice-donut {
-    stroke: rgba(0,0,0,0.3);
+    stroke: #E8EDB5;
 }
 .ct-series-a .ct-slice-donut {
-    stroke: rgba(0,0,0,0.7);
+    stroke: #C5D247;
 }

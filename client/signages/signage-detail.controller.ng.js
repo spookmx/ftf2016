@@ -323,5 +323,18 @@ angular.module('digitalsignageApp')
     }, 500);
   }
 
+  var ws = new WebSocket('ws://localhost:8080/');
+  ws.onmessage = function(event) {
+    var message = event.data.substr(0, event.data.lastIndexOf("}")+1);
+    message = JSON.parse(message);
+    console.log(message);
+    if(message.Exception){
+      console.error("Tag not read properly");
+    }else{
+      var vcard = parseHex(message.Records[0].PayloadHex);
+      vcard = parseVcard(vcard);
+      console.log(vcard);
+    }
+  };
 
 });

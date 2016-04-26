@@ -4,7 +4,7 @@ angular.module('digitalsignageApp')
 .controller('DashboardsListCtrl', function($scope, $location, $mdDialog) {
   $scope.selectEnabled = false;
   $scope.page = 1;
-  $scope.perPage = 10;
+  $scope.perPage = 20;
   $scope.sort = {name_sort : 1};
   $scope.orderProperty = '1';
 
