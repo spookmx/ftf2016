@@ -8,10 +8,15 @@
 }
 .dashboard-header{
 }
+.dashboard-grid{
+  height: 100%;
+}
 .dashboard-actions{
+  height: 3rem;
+  margin-left: -1rem;
 }
 .dashboard-content{
-  margin-top: 1rem;
+  height: 100%;
 }
 .tile-footer-padding{
   padding-left: 1rem;
@@ -86,4 +91,8 @@ md-grid-list md-grid-tile md-grid-tile-footer{
 }
 .ct-series-a .ct-slice-donut {
     stroke: #C5D247;
+}
+md-dialog md-dialog-content{
+  overflow-y: scroll;
+  overflow-x: hidden;
 }

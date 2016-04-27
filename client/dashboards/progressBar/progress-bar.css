@@ -1,0 +1,32 @@
+.pb-main-wrapper{
+  height: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+.pb-container{
+  padding-bottom: 3vw;
+}
+.pb-value-container{
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.5);
+}
+.pb-value{
+}
+md-progress-linear{
+  height: 1rem;
+}
+md-progress-linear .md-container .md-bar{
+  height: 1rem;
+}
+md-progress-linear .md-container .md-bar{
+  height: 1rem;
+}
+md-progress-linear .md-container{
+  height: 1rem;
+}
+md-progress-linear .md-bar{
+  background-color: #73B4D9;
+}
+md-progress-linear .md-container {
+  background-color: rgba(0, 0, 0, 0.5);
+}

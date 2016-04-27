@@ -1,13 +1,17 @@
 <div class="dashboard-detail" layout="column" flex layout-fill>
   <div class="dashboard-wrapper md-whiteframe-1dp" layout="column" flex layout-fill>
-    <div class="dashboard-header" layout="column">
-      <span class="md-display-1">{{dashboard.name}}</span>
-      <small ng-if="!fullScreenMode">Last Updated: {{dashboard.lastUpdated | date:'medium'}}</small>
-      <p class="md-subhead">
-        {{dashboard.description}}
-      </p>
+    <div class="dashboard-header" layout="row" flex="">
+      <div flex>
+      </div>
+      <div flex="grow" layout="column">
+        <span class="md-display-1">{{dashboard.name}}</span>
+        <small ng-if="!fullScreenMode">Last Updated: {{dashboard.lastUpdated | date:'medium'}}</small>
+        <span>
+          {{dashboard.description}}
+        </span>
+      </div>
     </div>
-    <div class="dashboard-actions" layout="row" ng-if="!fullScreenMode">
+    <div class="dashboard-actions" layout="row" ng-if="!fullScreenMode" flex="none">
       <md-button ng-click="addWidget()" aria-label="Add Widget">
         <md-icon md-svg-icon="content:ic_add_box_24px"></md-icon> Add Tile
       </md-button>
@@ -24,8 +28,8 @@
         <md-icon md-svg-icon="action:ic_settings_overscan_24px"></md-icon> Fullscreen
       </md-button>
     </div>
-    <div class="dashboard-content" flex="grow">
-      <md-grid-list class="grid-animate" md-cols="4" md-row-height="2:1" md-gutter="8px" md-on-layout="gridReady($event)">
+    <div class="dashboard-content" flex="75">
+      <md-grid-list class="grid-animate dashboard-grid" md-cols="4" md-row-height="fit" md-gutter="1rem" md-on-layout="gridReady($event)">
         <md-grid-tile ng-repeat="tile in dashboard.tiles | orderBy:'order'" md-rowspan="{{tile.height}}" md-colspan="{{tile.width}}">
           <div class="tile-wrapper" layout="column">
             <div ng-if="tile.visualization.type=='line-chart'" class="tile-chart-container" flex layout-fill>
@@ -51,6 +55,9 @@
             </div>
             <div ng-if="tile.visualization.type=='progress-circle'" class="tile-chart-container" flex layout-fill>
               <progress-circle ng-if="parametersReady" class="socials-card" data="parameters[tile.parameter].chartdata" tile="tile"></progress-circle>
+            </div>
+            <div ng-if="tile.visualization.type=='progress-bar'" class="tile-chart-container" flex layout-fill>
+              <progress-bar ng-if="parametersReady" class="socials-card" data="parameters[tile.parameter].chartdata" tile="tile"></progress-bar>
             </div>
             <div class="tile-footer md-whiteframe-1dp" layout="row" layout-align="start center">
                 <md-button class="md-icon-button" ng-click="tileSettings(tile)" aria-label="Settings" ng-if="!fullScreenMode">

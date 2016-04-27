@@ -1,0 +1,13 @@
+<div class="pb-container" layout="column" layout-align="center center" flex layout-fill>
+  <div layout="row" layout-align="center center" class="pb-value-container" ng-style="setFont()">
+    <span class="rc-value" count-to="{{data.labels[data.labels.length-1]}}" value="{{data.labels[data.labels.length-2]}}" duration="0.5"></span>
+    <span class="rc-value">{{tile.unit}}</span>
+  </div>
+  <div layout="row">
+    <div flex></div>
+    <div ng-style="setWidth()" class="pb-main-wrapper">
+      <md-progress-linear md-mode="determinate" value="{{progress}}"></md-progress-linear>
+    </div>
+    <div flex></div>
+  </div>
+</div>

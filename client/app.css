@@ -2,7 +2,7 @@
   font-size: 1.13vw;
 }
 .md-dialog-content{
-  min-width: 400px;
+  min-width: 50vw;
 }
 .md-caption {
   text-transform: uppercase;
