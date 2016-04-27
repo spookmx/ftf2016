@@ -1,0 +1,17 @@
+<div class="li-container" layout="column" flex layout-fill>
+  <div layout="row" flex layout-fill>
+      <div flex></div>
+      <div ng-style="setWidth()" class="li-main-wrapper">
+        <div class="li-main-circle" layout="row" layout-align="center start" ng-style="{
+          'background': 'rgba(255,180,55,'+opacity+')',
+          'box-shadow': '0rem 0rem 3rem 0rem rgba(255,180,55,'+opacity+')'
+        }">
+        </div>
+      </div>
+      <div flex></div>
+  </div>
+  <div layout="column" layout-align="center center" class="li-value-container" ng-style="setFont()">
+    <span class="li-value" count-to="{{data.labels[data.labels.length-1]}}" value="{{data.labels[data.labels.length-2]}}" duration="0.5"></span>
+    <span ng-style="setFontUnits()">{{tile.unit}}</span>
+  </div>
+</div>

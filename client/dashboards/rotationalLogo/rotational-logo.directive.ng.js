@@ -10,6 +10,16 @@ angular.module('digitalsignageApp')
     },
     replace: true,
     link: function($scope, elem, attrs) {
+      $scope.rArray = [];
+      $scope.$watch('data', function() {
+        if($scope.data){
+          var cadena = $scope.data.labels[$scope.data.labels.length-1]+"";
+          $scope.rArray = cadena.split(",");
+          $scope.rX = $scope.rArray[0];
+          $scope.rY = $scope.rArray[0];
+          $scope.rZ = $scope.rArray[0];
+        }
+      });
       $scope.setFont = function(){
         return {"font-size":(elem.height()*0.03)};
       };

@@ -1,4 +1,4 @@
-.rc-main-circle{
+.ci-main-circle{
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
@@ -8,25 +8,21 @@
   box-sizing: border-box;
   height: 100%;
 }
-.rc-main-wrapper{
+.ci-main-wrapper{
   height: 100%;
   box-sizing: border-box;
   padding: 1rem;
 }
-.rc-container{
+.ci-container{
   padding-bottom: 3vw;
 }
-.rc-pointer{
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 1rem 1rem 1rem;
-  border-color: transparent transparent #73B4D9 transparent;
-  margin-top: -0.5rem;
-}
-.rc-value-container{
+.ci-value-container{
   position: relative;
   height: 0;
   top: -50%;
   font-weight: 800;
+  color: rgba(0, 0, 0, 0.7);
+}
+.ci-value{
+
 }

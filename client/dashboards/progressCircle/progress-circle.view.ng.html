@@ -1,0 +1,17 @@
+<div class="pc-container" layout="column" flex layout-fill>
+  <div layout="row" flex layout-fill>
+      <div flex></div>
+      <div ng-style="setWidth()" class="pc-main-wrapper">
+        <div id="pc-main-circle" layout="row" layout-fill  layout-align="center center">
+          <div  class="pc-main-circle" layout="row">
+          </div>
+        </div>
+        <md-progress-circular ng-if="diameter" class="pc-indicator-circle" md-mode="determinate" value="{{progress}}" md-diameter="{{diameter}}"></md-progress-circular>
+      </div>
+      <div flex></div>
+  </div>
+  <div layout="row" layout-align="center center" class="rc-value-container" ng-style="setFont()">
+    <span class="rc-value" count-to="{{data.labels[data.labels.length-1]}}" value="{{data.labels[data.labels.length-2]}}" duration="0.5"></span>
+    <span class="rc-value">{{tile.unit}}</span>
+  </div>
+</div>

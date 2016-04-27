@@ -1,0 +1,13 @@
+<div class="ci-container" layout="column" flex layout-fill>
+  <div layout="row" flex layout-fill>
+      <div flex></div>
+      <div ng-style="setWidth()" class="li-main-wrapper">
+        <div class="ci-main-circle" layout="row" layout-align="center start" ng-style="setColor()">
+        </div>
+      </div>
+      <div flex></div>
+  </div>
+  <div layout="column" layout-align="center center" class="ci-value-container" ng-style="setFont()">
+    <span class="ci-value">rgb({{data.labels[data.labels.length-1]}})</span>
+  </div>
+</div>

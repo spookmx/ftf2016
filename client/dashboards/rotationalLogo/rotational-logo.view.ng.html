@@ -1,12 +1,12 @@
-<div class="rc-container" layout="column" flex layout-fill>
+<div class="rc-container" layout="column" flex layout-fill layout-align="center center">
   <div layout="row" flex layout-fill ng-style="setWidth()">
     <!-- <div flex layout-fill class="rl-main" ng-style="{
       '-webkit-transform': 'rotateZ('+data.labels[data.labels.length-1]+'deg)',
       'transform': 'rotateZ('+data.labels[data.labels.length-1]+'deg)'
     }"> -->
     <div flex layout-fill class="rl-main" ng-style="{
-      '-webkit-transform': 'rotateZ(20deg) rotateX(20deg) rotateY(20deg)',
-      'transform': 'rotateZ(20deg) rotateX(20deg) rotateY(20deg)'
+      '-webkit-transform': 'rotateZ('+rX+'deg) rotateX('+rY+'deg) rotateY('+rZ+'deg) scale(0.75)',
+      'transform': 'rotateZ('+rX+'deg) rotateX('+rY+'deg) rotateY('+rZ+'deg) scale(0.75)'
     }">
       <div class="rl-plane-X" ng-style="setWidth()">
       </div>
