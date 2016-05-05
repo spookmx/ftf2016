@@ -1,0 +1,7 @@
+<div class="pc-container" layout="column" layout-align="center center" flex layout-fill>
+  <div layout="row" layout-align="center center" class="tv-value-container" ng-style="setFont()">
+    <i ng-if="tile.visualization.icon" class="tv-icon zmdi" ng-class="iconOption"></i>
+    <span ng-if="tile.visualization.showValue" class="tv-value">{{legend}}</span>
+    <span class="tv-value">{{tile.unit}}</span>
+  </div>
+</div>

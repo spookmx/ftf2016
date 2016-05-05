@@ -59,6 +59,9 @@
             <div ng-if="tile.visualization.type=='progress-bar'" class="tile-chart-container" flex layout-fill>
               <progress-bar ng-if="parametersReady" class="socials-card" data="parameters[tile.parameter].chartdata" tile="tile"></progress-bar>
             </div>
+            <div ng-if="tile.visualization.type=='text-value'" class="tile-chart-container" flex layout-fill>
+              <text-value ng-if="parametersReady" class="socials-card" data="parameters[tile.parameter].chartdata" tile="tile"></text-value>
+            </div>
             <div class="tile-footer md-whiteframe-1dp" layout="row" layout-align="start center">
                 <md-button class="md-icon-button" ng-click="tileSettings(tile)" aria-label="Settings" ng-if="!fullScreenMode">
                   <md-icon md-svg-icon="action:ic_settings_24px"></md-icon>

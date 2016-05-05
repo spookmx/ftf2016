@@ -29,28 +29,10 @@
             <input type="number" min="0" max="{{tilesMax}}" ng-model="tileProto" aria-label="Order">
           </md-input-container>
         </div>
+
         <div layout="row">
           <md-input-container>
-            <label>Selected Parameter</label>
-            <md-select ng-model="tile.parameter">
-              <md-option ng-repeat="parameter in parameters" value="{{parameter._id}}">
-                {{parameter.name}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-          <md-input-container>
-            <input ng-model="tile.unit" placeholder="Units">
-          </md-input-container>
-          <md-input-container>
-            <input ng-model="tile.min" placeholder="Min">
-          </md-input-container>
-          <md-input-container>
-            <input ng-model="tile.max" placeholder="Max">
-          </md-input-container>
-        </div>
-        <div layout="row">
-          <md-input-container>
-            <label>Visulaization</label>
+            <label>Visualization</label>
             <md-select ng-model="tile.visualization.type">
               <md-option value="line-chart">
                 Line Chart
@@ -79,9 +61,48 @@
               <md-option value="progress-bar">
                 Percentage Bar
               </md-option>
+              <md-option value="text-value">
+                Text Value
+              </md-option>
             </md-select>
           </md-input-container>
-          <div class="checkbox-inline">
+        </div>
+        <div layout="row">
+          <md-input-container>
+            <label>Selected Parameter</label>
+            <md-select ng-model="tile.parameter">
+              <md-option ng-repeat="parameter in parameters" value="{{parameter._id}}">
+                {{parameter.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container ng-show="displayIcon">
+            <label>Icon</label>
+            <md-select ng-model="tile.visualization.icon">
+              <md-option value="null">
+                None
+              </md-option>
+              <md-option value="on-off">
+                On/Off
+              </md-option>
+              <md-option value="lock">
+                Lock
+              </md-option>
+              <md-option value="arrow">
+                Arrow
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container ng-show="displayUnits">
+            <input ng-model="tile.unit" placeholder="Units">
+          </md-input-container>
+          <md-input-container ng-show="displayMin">
+            <input ng-model="tile.min" placeholder="Min">
+          </md-input-container>
+          <md-input-container ng-show="displayMax">
+            <input ng-model="tile.max" placeholder="Max">
+          </md-input-container>
+          <div class="checkbox-inline" ng-show="displayValue">
             <md-checkbox ng-model="tile.visualization.showValue" aria-label="Show Current Value">
               Show Value
             </md-checkbox>

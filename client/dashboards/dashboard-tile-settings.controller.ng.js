@@ -28,6 +28,41 @@ angular.module('digitalsignageApp')
     }
     $mdDialog.hide();
   };
+
+  $scope.$watch("tile.visualization.type", function(current, previous) {
+    switch (current) {
+      case "line-chart":
+        $scope.displayMin = false;
+        $scope.displayMax = false;
+        $scope.displayValue = true;
+        break;
+      case "bar-chart":
+        $scope.displayMin = false;
+        $scope.displayMax = false;
+        $scope.displayValue = true;
+        break;
+      case "gauge-chart":
+        $scope.displayMin = true;
+        $scope.displayMax = true;
+        $scope.displayValue = true;
+        break;
+      case "text-value":
+        $scope.displayMin = false;
+        $scope.displayMax = false;
+        $scope.displayValue = true;
+        $scope.displayIcon = true;
+        break;
+      default:
+        $scope.displayMin = true;
+        $scope.displayMax = true;
+        $scope.displayValue = true;
+        $scope.displayIcon = false;
+    }
+  });
+  $scope.$watch("tile.visualization.showValue", function(current, previous) {
+    current ? $scope.displayUnits = true : $scope.displayUnits = false;
+  });
+
   $scope.$watch("tileProto", function(current, previous) {
     if(current != previous){
       for (var i = 0; i <= $scope.tilesMax; i++){
