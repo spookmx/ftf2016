@@ -1,6 +1,6 @@
 //Vcard Parser
 parseVcard = function (input) {
-    var Re1 = /^(version|fn|title|org):(.+)$/i;
+    var Re1 = /^(version|n|uid|org):(.+)$/i;
     var Re2 = /^([^:;]+);([^:]+):(.+)$/;
     var ReKey = /item\d{1,2}\./;
     var fields = {};

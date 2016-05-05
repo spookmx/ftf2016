@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('digitalsignageApp')
-.controller('SignageDetailCtrl', function($scope, $stateParams, $interval, $reactive, $timeout) {
+.controller('SignageGstreamerDetailCtrl', function($scope, $stateParams, $interval, $reactive, $timeout) {
   $scope.selectedContent="";
   $scope.selectedContentPosition= 0;
 
@@ -225,29 +225,17 @@ angular.module('digitalsignageApp')
 
   $scope.$watch("image", function() {
     if($scope.image){
-      $scope.showingImage = false;
-      $scope.showingVideo = false;
-      $timeout(function(){
-        $scope.imageNew = $scope.image.url();
-        $scope.imagePast = $scope.image.url();
-        $scope.showingImage = true;
-      }, 500);
+      gs.send({"link": $scope.image.url(),"width": "800","height": "600","x": "300","y": "700"});
+      console.log("New image requested");
+      console.log({"link": $scope.image.url(),"width": "800","height": "600","x": "300","y": "700"});
     }
   });
 
   $scope.$watch("video", function() {
     if($scope.video){
-      $scope.videoPlayer ? $scope.videoPlayer.pause() : null;
-      $scope.showingVideo = false;
-      $scope.showingImage = false;
-      $timeout(function(){
-        $scope.videoNew = "";
-        $scope.videoNew = $scope.video.url();
-        $scope.showingVideo = true;
-        $scope.$apply();
-        $scope.videoPlayer = document.getElementById("video-player");
-        $scope.videoPlayer.play();
-      }, 500);
+      gs.send({"link": $scope.video.url(),"width": "800","height": "600","x": "300","y": "700"});
+      console.log("New video requested");
+      console.log({"link": $scope.video.url(),"width": "800","height": "600","x": "300","y": "700"});
     }
   });
 
@@ -324,7 +312,7 @@ angular.module('digitalsignageApp')
     }, 500);
   }
 
-  var ws = new WebSocket('ws://localhost:8080/');
+  var ws = new WebSocket('ws://localhost:8765/');
   ws.onmessage = function(event) {
     var message = event.data.substr(0, event.data.lastIndexOf("}")+1);
     message = JSON.parse(message);
@@ -338,8 +326,10 @@ angular.module('digitalsignageApp')
       var name = vcard.n.split(";");
       attendee.fullName = name[1]+" "+name[0];
       showAgenda(attendee);
-
     }
   };
+
+  var gs = new WebSocket('ws://localhost:8788/');
+
 
 });

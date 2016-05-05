@@ -9,36 +9,34 @@ angular.module('digitalsignageApp')
       attendee: '=',
     },
     replace: true,
-    link: function($scope, elem, attrs, $http) {
-
+    link: function($scope, elem, attrs) {
       $scope.$watch('attendee', function() {
         //Assuming cn is the field where the confirmation number is stored on the VCard
-        if($scope.attendee.cn){
+        if($scope.attendee.uid){
           //The event identifier supplied by SpotMe
-          var eid = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
+          var eid = "9a2b57983d9149b1ff9cedc66d5dde29";
           //The endpoint for the schedule per attendee on SpotMe API
           $scope.loadingData = true;
-          var requestURL = "https://usadmin.4pax.com/api/v1/eid/"+eid+"/nodehandlers/nxpnfc/schedule?participant_id="+$scope.attendee.cn;
-          $http({
-            method: 'GET',
-            url: requestURL
-          }).then(function successCallback(response) {
-            $scope.loadingData = false;
-            if(response.data.agenda){
-              $scope.sessions = response.data.agenda;
+          var requestURL = "https://usadmin.4pax.com/api/v1/eid/"+eid+"/nodehandlers/nxpnfc/schedule";
+          HTTP.get(requestURL,
+          {params: {key: "Xj6Za32pCb", participant_id:$scope.attendee.uid}},
+          function(error, result) {
+            if(error){
+              console.log(error);
             }else{
-              console.error("No agenda data available");
+              $scope.loadingData = false;
+              if(result.data.agenda){
+                $scope.sessions = response.data.agenda;
+              }else{
+                console.error("No agenda data available");
+              }
             }
-          }, function errorCallback(response) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
           });
+
         }else{
           console.error("No confirmation number identified on the Vcard");
         }
       });
-
-
     }
   };
 });
