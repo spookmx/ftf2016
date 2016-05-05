@@ -134,19 +134,7 @@
                     </div>
                     <p class="tweet-text-content">{{ tweet.tweet.text }}</p>
                     <div layout="row" class="tweet-actions">
-                      <md-button ng-show="!tweet.favorited" class="md-icon-button md-primary" aria-label="Favorite" ng-click="tweetFavorite(tweet)">
-                        <md-tooltip md-direction="top">
-                          Favorite
-                        </md-tooltip>
-                        <md-icon md-svg-icon="toggle:ic_star_border_24px"></md-icon>
-                      </md-button>
-                      <md-button ng-show="tweet.favorited" class="md-icon-button md-primary" aria-label="Favorite">
-                        <md-tooltip md-direction="top">
-                          Favorited!
-                        </md-tooltip>
-                        <md-icon md-svg-icon="toggle:ic_star_24px"></md-icon>
-                      </md-button>
-                      <md-button class="md-icon-button md-warn" aria-label="Remove" ng-click="tweetRemove(tweet)">
+                      <md-button class="md-icon-button md-warn" aria-label="Remove" ng-click="selectedtweetDelete(tweet)">
                         <md-tooltip md-direction="top">
                           Remove
                         </md-tooltip>
