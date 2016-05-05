@@ -21,39 +21,44 @@
             </div>
 
             <!-- List START-->
-            <md-list>
-              <md-list-item class="md-3-line md-whiteframe-1dp tweet-card" ng-repeat="tweet in tweetsStream">
-                <img ng-src="{{ tweet.tweet.user.profile_image_url_https}}" class="md-avatar" alt="{{tweet.tweet.user.screen_name}}" />
-                <div class="md-list-item-text tweet-text" layout="column">
-                  <div layout="row">
-                    <span class="md-title">{{ tweet.tweet.user.name }}</span>
-                    <p>&nbsp; @{{ tweet.tweet.user.screen_name }}</p>
+            <md-virtual-repeat-container class="tweet-list">
+              <md-list>
+                <md-list-item  md-virtual-repeat="tweet in tweetsStream" class="repeated-item md-3-line tweet-card" flex>
+                  <div class="tweet-white-background">
                   </div>
-                  <p class="md-caption">{{ tweet.tweet.text }}</p>
-                  <div layout="row" class="tweet-actions">
-                    <md-button ng-show="!tweet.favorited" class="md-icon-button md-primary" aria-label="Favorite" ng-click="tweetFavorite(tweet)">
-                      <md-tooltip md-direction="top">
-                        Favorite
-                      </md-tooltip>
-                      <md-icon md-svg-icon="toggle:ic_star_border_24px"></md-icon>
-                    </md-button>
-                    <md-button ng-show="tweet.favorited" class="md-icon-button md-primary" aria-label="Favorite">
-                      <md-tooltip md-direction="top">
-                        Favorited!
-                      </md-tooltip>
-                      <md-icon md-svg-icon="toggle:ic_star_24px"></md-icon>
-                    </md-button>
-                    <md-button class="md-icon-button md-warn" aria-label="Remove" ng-click="tweetRemove(tweet)">
-                      <md-tooltip md-direction="top">
-                        Remove
-                      </md-tooltip>
-                      <md-icon md-svg-icon="action:ic_delete_24px"></md-icon>
-                    </md-button>
+                  <div ng-style="{'background-image':'url('+tweet.tweet.entities.media[0].media_url_https+')'}" class="tweet-card-background">
                   </div>
-                </div>
-              </md-list-item>
-            </md-list>
-            <!-- List END -->
+                  <img ng-src="{{ tweet.tweet.user.profile_image_url_https}}" class="md-avatar md-whiteframe-1dp tweet-avatar" alt="{{tweet.tweet.user.screen_name}}" />
+                  <div class="md-list-item-text tweet-text" layout="column">
+                    <div layout="row">
+                      <h5 class="tweet-user-name">{{ tweet.tweet.user.name }}</h5>
+                      <p>&nbsp; @{{ tweet.tweet.user.screen_name }}</p>
+                    </div>
+                    <p class="tweet-text-content">{{ tweet.tweet.text }}</p>
+                    <div layout="row" class="tweet-actions">
+                      <md-button ng-show="!tweet.favorited" class="md-icon-button md-primary" aria-label="Favorite" ng-click="tweetFavorite(tweet)">
+                        <md-tooltip md-direction="top">
+                          Favorite
+                        </md-tooltip>
+                        <md-icon md-svg-icon="toggle:ic_star_border_24px"></md-icon>
+                      </md-button>
+                      <md-button ng-show="tweet.favorited" class="md-icon-button md-primary" aria-label="Favorite">
+                        <md-tooltip md-direction="top">
+                          Favorited!
+                        </md-tooltip>
+                        <md-icon md-svg-icon="toggle:ic_star_24px"></md-icon>
+                      </md-button>
+                      <md-button class="md-icon-button md-warn" aria-label="Remove" ng-click="tweetRemove(tweet)">
+                        <md-tooltip md-direction="top">
+                          Remove
+                        </md-tooltip>
+                        <md-icon md-svg-icon="action:ic_delete_24px"></md-icon>
+                      </md-button>
+                    </div>
+                  </div>
+                </md-list-item >
+              </md-list>
+            </md-virtual-repeat-container>
           </md-content>
         </md-tab>
         <md-tab label="search">
@@ -68,40 +73,44 @@
                 <md-button class="md-raised" ng-click="tweetSearchClear()">Clear</md-button>
               </div>
             </section>
-            <!-- List START-->
-            <md-list>
-              <md-list-item class="md-3-line md-whiteframe-1dp tweet-card" ng-repeat="tweet in tweetsSearch">
-                <img ng-src="{{ tweet.tweet.user.profile_image_url_https}}" class="md-avatar" alt="{{tweet.tweet.user.screen_name}}" />
-                <div class="md-list-item-text tweet-text" layout="column">
-                  <div layout="row">
-                    <span class="md-title">{{ tweet.tweet.user.name }}</span>
-                    <p>&nbsp; @{{ tweet.tweet.user.screen_name }}</p>
+            <md-virtual-repeat-container class="tweet-list">
+              <md-list>
+                <md-list-item  md-virtual-repeat="tweet in tweetsSearch" class="repeated-item md-3-line tweet-card" flex>
+                  <div class="tweet-white-background">
                   </div>
-                  <p class="md-caption">{{ tweet.tweet.text }}</p>
-                  <div layout="row" class="tweet-actions">
-                    <md-button ng-show="!tweet.favorited" class="md-icon-button md-primary" aria-label="Favorite" ng-click="tweetFavorite(tweet)">
-                      <md-tooltip md-direction="top">
-                        Favorite
-                      </md-tooltip>
-                      <md-icon md-svg-icon="toggle:ic_star_border_24px"></md-icon>
-                    </md-button>
-                    <md-button ng-show="tweet.favorited" class="md-icon-button md-primary" aria-label="Favorite">
-                      <md-tooltip md-direction="top">
-                        Favorited!
-                      </md-tooltip>
-                      <md-icon md-svg-icon="toggle:ic_star_24px"></md-icon>
-                    </md-button>
-                    <md-button class="md-icon-button md-warn" aria-label="Remove" ng-click="tweetRemove(tweet)">
-                      <md-tooltip md-direction="top">
-                        Remove
-                      </md-tooltip>
-                      <md-icon md-svg-icon="action:ic_delete_24px"></md-icon>
-                    </md-button>
+                  <div ng-style="{'background-image':'url('+tweet.tweet.entities.media[0].media_url_https+')'}" class="tweet-card-background">
                   </div>
-                </div>
-              </md-list-item>
-            </md-list>
-            <!-- List END -->
+                  <img ng-src="{{ tweet.tweet.user.profile_image_url_https}}" class="md-avatar md-whiteframe-1dp tweet-avatar" alt="{{tweet.tweet.user.screen_name}}" />
+                  <div class="md-list-item-text tweet-text" layout="column">
+                    <div layout="row">
+                      <h5 class="tweet-user-name">{{ tweet.tweet.user.name }}</h5>
+                      <p>&nbsp; @{{ tweet.tweet.user.screen_name }}</p>
+                    </div>
+                    <p class="tweet-text-content">{{ tweet.tweet.text }}</p>
+                    <div layout="row" class="tweet-actions">
+                      <md-button ng-show="!tweet.favorited" class="md-icon-button md-primary" aria-label="Favorite" ng-click="tweetFavorite(tweet)">
+                        <md-tooltip md-direction="top">
+                          Favorite
+                        </md-tooltip>
+                        <md-icon md-svg-icon="toggle:ic_star_border_24px"></md-icon>
+                      </md-button>
+                      <md-button ng-show="tweet.favorited" class="md-icon-button md-primary" aria-label="Favorite">
+                        <md-tooltip md-direction="top">
+                          Favorited!
+                        </md-tooltip>
+                        <md-icon md-svg-icon="toggle:ic_star_24px"></md-icon>
+                      </md-button>
+                      <md-button class="md-icon-button md-warn" aria-label="Remove" ng-click="tweetRemove(tweet)">
+                        <md-tooltip md-direction="top">
+                          Remove
+                        </md-tooltip>
+                        <md-icon md-svg-icon="action:ic_delete_24px"></md-icon>
+                      </md-button>
+                    </div>
+                  </div>
+                </md-list-item >
+              </md-list>
+            </md-virtual-repeat-container>
           </md-content>
         </md-tab>
         <md-tab label="selected">
@@ -110,26 +119,44 @@
               <md-button class="md-raised" ng-click="selectedtweetsRemoveAll()">Delete All</md-button>
             </div>
             <!-- List START-->
-            <md-list>
-              <md-list-item class="md-3-line md-whiteframe-1dp tweet-card" ng-repeat="tweet in selectedtweets">
-                <img ng-src="{{ tweet.tweet.user.profile_image_url_https}}" class="md-avatar" alt="{{tweet.tweet.user.screen_name}}" />
-                <div class="md-list-item-text tweet-text" layout="column">
-                  <div layout="row">
-                    <span class="md-title">{{ tweet.tweet.user.name }}</span>
-                    <p>&nbsp; @{{ tweet.tweet.user.screen_name }}</p>
+            <md-virtual-repeat-container class="tweet-list">
+              <md-list>
+                <md-list-item  md-virtual-repeat="tweet in selectedtweets" class="repeated-item md-3-line tweet-card" flex>
+                  <div class="tweet-white-background">
                   </div>
-                  <p class="md-caption">{{ tweet.tweet.text }}</p>
-                  <div layout="row" class="tweet-actions">
-                    <md-button class="md-icon-button md-warn" aria-label="Remove" ng-click="selectedtweetDelete(tweet)">
-                      <md-tooltip md-direction="top">
-                        Delete
-                      </md-tooltip>
-                      <md-icon md-svg-icon="action:ic_delete_24px"></md-icon>
-                    </md-button>
+                  <div ng-style="{'background-image':'url('+tweet.tweet.entities.media[0].media_url_https+')'}" class="tweet-card-background">
                   </div>
-                </div>
-              </md-list-item>
-            </md-list>
+                  <img ng-src="{{ tweet.tweet.user.profile_image_url_https}}" class="md-avatar md-whiteframe-1dp tweet-avatar" alt="{{tweet.tweet.user.screen_name}}" />
+                  <div class="md-list-item-text tweet-text" layout="column">
+                    <div layout="row">
+                      <h5 class="tweet-user-name">{{ tweet.tweet.user.name }}</h5>
+                      <p>&nbsp; @{{ tweet.tweet.user.screen_name }}</p>
+                    </div>
+                    <p class="tweet-text-content">{{ tweet.tweet.text }}</p>
+                    <div layout="row" class="tweet-actions">
+                      <md-button ng-show="!tweet.favorited" class="md-icon-button md-primary" aria-label="Favorite" ng-click="tweetFavorite(tweet)">
+                        <md-tooltip md-direction="top">
+                          Favorite
+                        </md-tooltip>
+                        <md-icon md-svg-icon="toggle:ic_star_border_24px"></md-icon>
+                      </md-button>
+                      <md-button ng-show="tweet.favorited" class="md-icon-button md-primary" aria-label="Favorite">
+                        <md-tooltip md-direction="top">
+                          Favorited!
+                        </md-tooltip>
+                        <md-icon md-svg-icon="toggle:ic_star_24px"></md-icon>
+                      </md-button>
+                      <md-button class="md-icon-button md-warn" aria-label="Remove" ng-click="tweetRemove(tweet)">
+                        <md-tooltip md-direction="top">
+                          Remove
+                        </md-tooltip>
+                        <md-icon md-svg-icon="action:ic_delete_24px"></md-icon>
+                      </md-button>
+                    </div>
+                  </div>
+                </md-list-item >
+              </md-list>
+            </md-virtual-repeat-container>
             <!-- List END -->
           </md-content>
         </md-tab>
