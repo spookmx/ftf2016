@@ -9,4 +9,5 @@ Meteor.startup(function() {
       Streamst.insert(stream);
     });
   }
+  Streamst.remove({});
 });

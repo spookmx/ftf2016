@@ -11,7 +11,7 @@
 }
 .tweet-text{
   padding-top: 10px;
-  background: linear-gradient(to right, rgba(255,255,255,1) 75%, rgba(255,255,255,0.6));
+  background: linear-gradient(to right, rgba(255,255,255,1) 90%, rgba(255,255,255,0.5));
   z-index: 2;
 }
 .tweet-avatar{
@@ -39,6 +39,7 @@
   height: 100%;
   background-position-x: 100%;
   background-repeat: no-repeat;
+  background-size: contain;
   z-index: 1;
 }
 .tweet-white-background{
