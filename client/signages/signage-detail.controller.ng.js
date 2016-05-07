@@ -227,7 +227,8 @@ angular.module('digitalsignageApp')
     if($scope.image){
       $scope.showingImage = false;
       $scope.showingVideo = false;
-      $timeout(function(){
+      $timeout.cancel($scope.showImageTimer);
+      $scope.showImageTimer = $timeout(function(){
         $scope.imageNew = $scope.image.url();
         $scope.imagePast = $scope.image.url();
         $scope.showingImage = true;
@@ -240,7 +241,8 @@ angular.module('digitalsignageApp')
       $scope.videoPlayer ? $scope.videoPlayer.pause() : null;
       $scope.showingVideo = false;
       $scope.showingImage = false;
-      $timeout(function(){
+      $timeout.cancel($scope.showVideoTimer);
+      $scope.showVideoTimer = $timeout(function(){
         $scope.videoNew = "";
         $scope.videoNew = $scope.video.url();
         $scope.showingVideo = true;
@@ -314,14 +316,33 @@ angular.module('digitalsignageApp')
   function showAgenda(attendee){
     //VCard expected to be a string with the standard Vcard 3 format
     $scope.attendee = attendee;
-    console.log($scope.attendee);
-    //attendee.fn holds attendee full name
-    $timeout.cancel($scope.changeInterval);
     $scope.showingImage = false;
     $scope.showingVideo = false;
-    $timeout(function(){
+    cancelTimers();
+    $scope.showAgendaTimer = $timeout(function(){
+      $scope.showingImage = false;
+      $scope.showingVideo = false;
       $scope.showingAgenda = true;
+      cancelTimers();
+      $scope.hideAgendaTimer = $timeout(function(){
+        hideAgenda();
+      }, 10000);
     }, 500);
+  }
+
+  function cancelTimers(){
+    $timeout.cancel($scope.showImageTimer);
+    $timeout.cancel($scope.showVideoTimer);
+    $timeout.cancel($scope.changeInterval);
+    $timeout.cancel($scope.showAgendaTimer);
+    $timeout.cancel($scope.hideAgendaTimer);
+  }
+
+  function hideAgenda(){
+    cancelTimers()
+    $scope.attendee = {};
+    $scope.showingAgenda = false;
+    changeContent();
   }
 
   var ws = new WebSocket('ws://localhost:8080/');
@@ -337,8 +358,8 @@ angular.module('digitalsignageApp')
       attendee.uid = vcard.uid;
       var name = vcard.n.split(";");
       attendee.fullName = name[1]+" "+name[0];
-      showAgenda(attendee);
-
+      console.log(attendee);
+      $scope.attendee.uid == attendee.uid ? hideAgenda() : showAgenda(attendee);
     }
   };
 

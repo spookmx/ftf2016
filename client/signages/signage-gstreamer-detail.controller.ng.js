@@ -225,7 +225,7 @@ angular.module('digitalsignageApp')
 
   $scope.$watch("image", function() {
     if($scope.image){
-      gs.send({"link": $scope.image.url(),"width": "800","height": "600","x": "300","y": "700"});
+      gs.send(JSON.stringify({"link": $scope.image.url(),"width": "800","height": "600","x": "300","y": "700"}));
       console.log("New image requested");
       console.log({"link": $scope.image.url(),"width": "800","height": "600","x": "300","y": "700"});
     }
@@ -233,7 +233,7 @@ angular.module('digitalsignageApp')
 
   $scope.$watch("video", function() {
     if($scope.video){
-      gs.send({"link": $scope.video.url(),"width": "800","height": "600","x": "300","y": "700"});
+      gs.send(JSON.stringify({"link": $scope.video.url(),"width": "800","height": "600","x": "300","y": "700"}));
       console.log("New video requested");
       console.log({"link": $scope.video.url(),"width": "800","height": "600","x": "300","y": "700"});
     }
@@ -302,31 +302,42 @@ angular.module('digitalsignageApp')
   function showAgenda(attendee){
     //VCard expected to be a string with the standard Vcard 3 format
     $scope.attendee = attendee;
-    console.log($scope.attendee);
-    //attendee.fn holds attendee full name
-    $timeout.cancel($scope.changeInterval);
     $scope.showingImage = false;
     $scope.showingVideo = false;
-    $timeout(function(){
+    gs.send(JSON.stringify({"link": "hide"}));
+    cancelTimers();
+    $scope.showAgendaTimer = $timeout(function(){
+      $scope.showingImage = false;
+      $scope.showingVideo = false;
       $scope.showingAgenda = true;
+      cancelTimers();
+      $scope.hideAgendaTimer = $timeout(function(){
+        hideAgenda();
+      }, 10000);
     }, 500);
+  }
+
+  function cancelTimers(){
+    $timeout.cancel($scope.showImageTimer);
+    $timeout.cancel($scope.showVideoTimer);
+    $timeout.cancel($scope.changeInterval);
+    $timeout.cancel($scope.showAgendaTimer);
+    $timeout.cancel($scope.hideAgendaTimer);
+  }
+
+  function hideAgenda(){
+    cancelTimers()
+    $scope.attendee = {};
+    $scope.showingAgenda = false;
+    changeContent();
   }
 
   var ws = new WebSocket('ws://localhost:8765/');
   ws.onmessage = function(event) {
     var message = event.data.substr(0, event.data.lastIndexOf("}")+1);
-    message = JSON.parse(message);
-    if(message.Exception){
-      console.error("Tag not read properly");
-    }else{
-      var vcard = parseHex(message.Records[0].PayloadHex);
-      vcard = parseVcard(vcard);
-      var attendee = {};
-      attendee.uid = vcard.uid;
-      var name = vcard.n.split(";");
-      attendee.fullName = name[1]+" "+name[0];
-      showAgenda(attendee);
-    }
+    attendee = JSON.parse(message);
+    console.log(attendee);
+    $scope.attendee.uid == attendee.uid ? hideAgenda() : showAgenda(attendee);
   };
 
   var gs = new WebSocket('ws://localhost:8788/');
