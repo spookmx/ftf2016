@@ -61,7 +61,9 @@ angular.module('digitalsignageApp')
             }
           ]
         }
-      ]});
+      ]},{
+        sort: {name : 1}
+      });
     },
     content: () =>{
       return Contents.findOne({ _id: $scope.getReactively('selectedContent') });

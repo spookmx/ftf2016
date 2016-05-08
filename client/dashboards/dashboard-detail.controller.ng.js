@@ -15,8 +15,16 @@ angular.module('digitalsignageApp')
         obj[ val._id ] = val;
       });
       return obj;
+    },
+    image: () => {
+      return Images.findOne({ _id: $scope.getReactively('dashboard.logoReference') });
+    },
+    user: () => {
+      return Meteor.user();
     }
   });
+  $scope.subscribe('images');
+
   $scope.lineChartOptions = {
     axisX: {
       showLabel: false,

@@ -5,7 +5,7 @@ angular.module('digitalsignageApp')
   $scope.selectEnabled = false;
   $scope.page = 1;
   $scope.perPage = 10;
-  $scope.sort = {name_sort : 1};
+  $scope.sort = {name : 1};
   $scope.orderProperty = '1';
 
   $scope.helpers({
@@ -19,7 +19,7 @@ angular.module('digitalsignageApp')
     },
     contents: function() {
       return Contents.find({}, {
-        sort: $scope.getReactively('sort')
+        sort: {name : 1}
       });
     },
     contentsCount: function() {

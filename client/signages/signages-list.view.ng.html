@@ -58,17 +58,22 @@
               </md-card-icon-actions>
             </md-card-actions>
             <md-card-content>
-              <md-list ng-cloak>
-                <md-list-item ng-repeat="content in contents" ng-click="editContent(content)">
-                  <p>
-                    {{ content.name }} <small class="md-caption">{{ content.type }}</small>
-                  </p>
-                  <md-button class="md-icon-button md-secondary" ng-click="removeContent(content)" aria-label="Remove">
-                    <md-icon md-svg-icon="action:ic_delete_24px"></md-icon>
-                  </md-button>
-                  <md-divider></md-divider>
-                </md-list-item>
-              </md-list>
+              <!-- Content List -->
+              <md-virtual-repeat-container class="tweet-list">
+
+                <md-list ng-cloak>
+                  <md-list-item ng-repeat="content in contents" ng-click="editContent(content)">
+                    <p>
+                      {{ content.name }} <small class="md-caption">{{ content.type }}</small>
+                    </p>
+                    <md-button class="md-icon-button md-secondary" ng-click="removeContent(content)" aria-label="Remove">
+                      <md-icon md-svg-icon="action:ic_delete_24px"></md-icon>
+                    </md-button>
+                    <md-divider></md-divider>
+                  </md-list-item>
+                </md-list>
+                
+              </md-virtual-repeat-container>
             </md-card-content>
           </md-card>
         </md-content>

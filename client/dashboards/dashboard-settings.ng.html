@@ -18,6 +18,34 @@
           <label>Description</label>
           <textarea ng-model="dashboard.description" md-maxlength="250" rows="4" md-select-on-focus></textarea>
         </md-input-container>
+
+        <div layout="row">
+          <md-whiteframe ng-hide="dashboard.logoReference || uploading || image" flex class="md-whiteframe-z1" layout="column">
+              <div flex>
+                  <div ngf-drop ngf-select
+                       ngf-change="addImages($files)"
+                       ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box"
+                       ngf-multiple="false" ngf-allow-dir="false" ngf-accept="'image/*'"
+                       ngf-drop-available="true"
+                       layout="row"
+                       layout-align="center center">
+                    <div>Click or Drag and Drop Image in Here to Upload</div>
+                  </div>
+              </div>
+          </md-whiteframe>
+          <div flex ng-show="uploading && !tempImage.isUploaded">
+            Uploading...
+          </div>
+          <md-card flex ng-show="tempImage.isUploaded || dashboard.logoReference" class="md-image-container-sm">
+            <img ng-src="{{image.url()}}" alt="Image">
+            <md-card-actions layout="row" layout-align="end center">
+              <md-button ng-click="removeImage()" class="md-warn">
+                <md-icon md-svg-icon="action:ic_delete_24px"></md-icon> Remove
+              </md-button>
+            </md-card-actions>
+          </md-card>
+        </div>
+
         <md-input-container>
           <input ng-model="newParameterTitle" placeholder="Add Parameter">
         </md-input-container>

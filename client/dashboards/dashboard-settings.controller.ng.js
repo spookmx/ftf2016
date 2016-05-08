@@ -4,14 +4,84 @@ angular.module('digitalsignageApp')
 .controller('DashboardSettingsController', function($scope, $mdDialog, dashboard) {
   $scope.newParameterTitle = "";
   $scope.dashboard = dashboard;
+  dashboard.logoReference ? $scope.imageId = dashboard.logoReference : $scope.imageId = "";
+
   $scope.helpers({
     parameters: () => {
       return Parameters.find({});
+    },
+    image: () => {
+      return Images.findOne({ _id: $scope.getReactively('imageId') });
     }
   });
+
+  $scope.subscribe('images');
   $scope.subscribe('parameters', () => {
     return [$scope.dashboard._id];
   });
+
+  //#######################################Logo upload methods START
+  $scope.uploading = false;
+  $scope.$watch('image', function(){
+    if($scope.image){
+      $scope.uploading = false;
+      if($scope.tempImage){
+        delete $scope.tempImage;
+        var dashboard = {logoReference: $scope.imageId};
+        Dashboards.update({
+          _id: $scope.dashboard._id
+        }, {
+          $set: dashboard
+        }, function(error) {
+          if(error) {
+            console.error(error);
+          } else {
+            console.info("Dashboard updated!");
+          }
+        });
+      }
+    }
+  });
+
+  $scope.removeImage = function() {
+    //Remove image from image collection
+    Images.remove({_id:$scope.imageId});
+    if($scope.tempImage){
+      delete $scope.tempImage;
+      $scope.imageId = '';
+    }else{
+      delete $scope.dashboard.logoReference;
+      Dashboards.update({
+        _id: $scope.dashboard._id
+      }, {
+        $unset: {logoReference: ""}
+      }, function(error) {
+        if(error) {
+          console.error(error);
+        } else {
+          console.info("Image removed from Dashboard!");
+        }
+      });
+      $scope.imageId = '';
+    }
+  };
+  $scope.addImages = (files) => {
+    if (files.length > 0) {
+      Images.insert(files[0], function (err, fileObj) {
+        if(err){
+          console.error("CFS Insert Method Error");
+        }else{
+          $scope.uploading = true;
+          $scope.imageId = fileObj._id;
+          $scope.dashboard.logoReference = fileObj._id;
+          $scope.tempImage = fileObj;
+          $scope.$apply();
+        }
+      });
+    }
+  };
+
+  //#######################################Logo Upload Methods END
 
   $scope.close = function(){
     $mdDialog.hide();

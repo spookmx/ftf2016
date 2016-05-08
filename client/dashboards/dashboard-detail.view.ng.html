@@ -1,8 +1,7 @@
 <div class="dashboard-detail" layout="column" flex layout-fill>
   <div class="dashboard-wrapper md-whiteframe-1dp" layout="column" flex layout-fill>
     <div class="dashboard-header" layout="row" flex="">
-      <div flex>
-      </div>
+
       <div flex="grow" layout="column">
         <span class="md-display-1">{{dashboard.name}}</span>
         <small ng-if="!fullScreenMode">Last Updated: {{dashboard.lastUpdated | date:'medium'}}</small>
@@ -10,8 +9,12 @@
           {{dashboard.description}}
         </span>
       </div>
+
+      <div flex="20">
+        <img ng-src="{{image.url()}}" alt="Logo" width="100%">
+      </div>
     </div>
-    <div class="dashboard-actions" layout="row" ng-if="!fullScreenMode" flex="none">
+    <div class="dashboard-actions" layout="row" ng-if="!fullScreenMode && user" flex="none">
       <md-button ng-click="addWidget()" aria-label="Add Widget">
         <md-icon md-svg-icon="content:ic_add_box_24px"></md-icon> Add Tile
       </md-button>

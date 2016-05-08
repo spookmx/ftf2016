@@ -28,16 +28,18 @@
       </md-card-icon-actions>
     </md-card-actions>
     <md-card-content>
-      <md-list ng-cloak>
-        <md-list-item ng-repeat="dashboard in dashboards" ng-click="editDashboard(this)">
-          <md-checkbox ng-show="$parent.selectEnabled" ng-model="dashboard.selected" class="checkbox" ng-click="$event.stopPropagation();"></md-checkbox>
-          <p>{{dashboard.name}}</p>
-          <md-button class="md-secondary md-icon-button" ng-click="settings(dashboard)" aria-label="Settings">
-            <md-icon md-svg-icon="action:ic_settings_24px"></md-icon>
-          </md-button>
-          <md-divider></md-divider>
-        </md-list-item>
-      </md-list>
+      <md-virtual-repeat-container class="tweet-list">
+        <md-list ng-cloak>
+          <md-list-item ng-repeat="dashboard in dashboards" ng-click="editDashboard(this)">
+            <md-checkbox ng-show="$parent.selectEnabled" ng-model="dashboard.selected" class="checkbox" ng-click="$event.stopPropagation();"></md-checkbox>
+            <p>{{dashboard.name}}</p>
+            <md-button class="md-secondary md-icon-button" ng-click="settings(dashboard)" aria-label="Settings">
+              <md-icon md-svg-icon="action:ic_settings_24px"></md-icon>
+            </md-button>
+            <md-divider></md-divider>
+          </md-list-item>
+        </md-list>
+      </md-virtual-repeat-container>
     </md-card-content>
     <!-- <p>Total number of dashboards: {{dashboardsCount}}</p> -->
   </md-card>

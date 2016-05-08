@@ -8,7 +8,7 @@ angular.module('digitalsignageApp')
   $scope.subscribe('streamst');
   $scope.helpers({
     tweetsStream: () => {
-      return Tweets.find({type:'stream'});
+      return Tweets.find({type:'stream'}, {sort: {createdAt: -1}});
     },
     tweetsSearch: () => {
       return Tweets.find({type:'search'});
