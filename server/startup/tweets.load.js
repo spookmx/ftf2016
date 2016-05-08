@@ -65,9 +65,12 @@ Meteor.startup(function() {
       }
       tweet.text = tweet.text.replace(/(https?|ftp):\/\/[\.[a-zA-Z0-9\/\-]+/, "");
       tweet.text = tweet.text.replace(/(https?|ftp):\/\/[\.[a-zA-Z0-9\/\-]+/, "");
+      var previouslySelected = Selectedtweets.findOne({"tweet.id": tweet.id});
+      var favorited = false;
+      previouslySelected ? favorited = true : null;
       Tweets.insert({
         user: user,
-        favorited: false,
+        favorited: favorited,
         type: 'search',
         tweet: tweet,
         createdAt: new Date()

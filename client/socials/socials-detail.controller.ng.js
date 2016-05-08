@@ -60,10 +60,17 @@ angular.module('digitalsignageApp')
     }
     if(previous.length < current.length && $scope.tweetProcessStarted){
       //Tweet Added
+      cancelTimers();
+      $scope.tweetlist[$scope.targetCard].changing = false;
+      $scope.changingCard = false;
+      $scope.targetCard = getRandomInt(0, 8);
+      $scope.targetTweetBefore = $scope.targetTweet;
       $scope.targetTweet = $scope.tweets.length-1;
+      changeCard();
     }
     startTweetRotation();
   });
+  $scope.targetTweetBefore = 0;
 
   function startTweetRotation(){
     if($scope.tweetCountReady && $scope.tweets.length == $scope.tweetsCount && !$scope.tweetProcessStarted){
@@ -92,6 +99,10 @@ angular.module('digitalsignageApp')
       $scope.tweetlist[$scope.targetCard].tweet = $scope.tweets[$scope.targetTweet].tweet;
       $scope.tweetlist[$scope.targetCard].changing = false;
       $scope.changingCard = false;
+      if($scope.targetTweetBefore){
+        $scope.targetTweet = $scope.targetTweetBefore-1;
+        $scope.targetTweetBefore = 0;
+      }
       $scope.tweetsCount-1 > $scope.targetTweet ? $scope.targetTweet++ : $scope.targetTweet=0;
       $scope.targetCard < 8 ? $scope.targetCard++ : $scope.targetCard=0;
       $scope.hideCardTimer = $timeout(changeCard, getRandomInt(10000,7000));
