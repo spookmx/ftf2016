@@ -57,7 +57,9 @@ Meteor.startup(function() {
       var imageArray = image.split("_normal");
       var imageNew = imageArray[0]+imageArray[1];
       tweet.user.profile_image_url_https = imageNew;
-      if(tweet.entities && tweet.entities.media && !tweet.entities.media[0].media_url_https){
+      !tweet.entities ? tweet.entities = {} : null;
+      !tweet.entities.media ? tweet.entities.media = [{media_url_https:false}] : null;
+      if(!tweet.entities.media[0].media_url_https){
         var backgroundImage = "/images/tweetbkg/bkg-"+Math.floor(Math.random()*14)+".png";
         tweet.entities.media = [{"media_url_https": backgroundImage}];
       }
