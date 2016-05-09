@@ -225,18 +225,16 @@ angular.module('digitalsignageApp')
 
   $scope.$watch("image", function() {
     if($scope.image){
-      gs.send(JSON.stringify({"link": $scope.image.url(),"width": "800","height": "600","x": "300","y": "700"}));
+      gs.send(JSON.stringify({"link": $scope.productionURL+$scope.image.url(),"width": "1280","height": "720","x": "83","y": "44"}));
       console.log("New image requested");
-      console.log({"link": $scope.image.url(),"width": "800","height": "600","x": "300","y": "700"});
     }
   });
 
   $scope.productionURL = "http://tx11wfm01c.cloudapp.net/";
   $scope.$watch("video", function() {
     if($scope.video){
-      gs.send(JSON.stringify({"link": $scope.productionURL+$scope.video.url(),"width": "800","height": "600","x": "300","y": "700"}));
+      gs.send(JSON.stringify({"link": $scope.productionURL+$scope.video.url(),"width": "1280","height": "720","x": "83","y": "44"}));
       console.log("New video requested");
-      console.log({"link": $scope.productionURL+$scope.video.url(),"width": "800","height": "600","x": "300","y": "700"});
     }
   });
 
