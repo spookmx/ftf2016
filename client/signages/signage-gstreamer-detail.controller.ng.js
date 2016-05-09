@@ -231,11 +231,12 @@ angular.module('digitalsignageApp')
     }
   });
 
+  $scope.productionURL = "http://tx11wfm01c.cloudapp.net/";
   $scope.$watch("video", function() {
     if($scope.video){
-      gs.send(JSON.stringify({"link": $scope.video.url(),"width": "800","height": "600","x": "300","y": "700"}));
+      gs.send(JSON.stringify({"link": $scope.productionURL+$scope.video.url(),"width": "800","height": "600","x": "300","y": "700"}));
       console.log("New video requested");
-      console.log({"link": $scope.video.url(),"width": "800","height": "600","x": "300","y": "700"});
+      console.log({"link": $scope.productionURL+$scope.video.url(),"width": "800","height": "600","x": "300","y": "700"});
     }
   });
 
