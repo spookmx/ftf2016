@@ -16,8 +16,8 @@ angular.module('digitalsignageApp')
           var cadena = $scope.data.labels[$scope.data.labels.length-1]+"";
           $scope.rArray = cadena.split(",");
           $scope.rX = $scope.rArray[0];
-          $scope.rY = $scope.rArray[0];
-          $scope.rZ = $scope.rArray[0];
+          $scope.rY = $scope.rArray[1];
+          $scope.rZ = $scope.rArray[2];
         }
       });
       $scope.setFont = function(){
