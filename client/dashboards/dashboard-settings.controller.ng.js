@@ -12,6 +12,9 @@ angular.module('digitalsignageApp')
     },
     image: () => {
       return Images.findOne({ _id: $scope.getReactively('imageId') });
+    },
+    user: () => {
+      return Meteor.user();
     }
   });
 

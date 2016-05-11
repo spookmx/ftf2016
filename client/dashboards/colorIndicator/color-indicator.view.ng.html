@@ -7,7 +7,7 @@
       </div>
       <div flex></div>
   </div>
-  <div layout="column" layout-align="center center" class="ci-value-container" ng-style="setFont()">
+  <div ng-if="tile.visualization.showValue" layout="column" layout-align="center center" class="ci-value-container" ng-style="setFont()">
     <span class="ci-value">rgb({{data.labels[data.labels.length-1]}})</span>
   </div>
 </div>

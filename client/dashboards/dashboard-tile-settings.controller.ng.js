@@ -52,6 +52,13 @@ angular.module('digitalsignageApp')
         $scope.displayValue = true;
         $scope.displayIcon = true;
         break;
+      case "color-indicator":
+        $scope.displayMin = false;
+        $scope.displayMax = false;
+        $scope.displayValue = true;
+        $scope.displayIcon = false;
+        $scope.displayUnits = false;
+        break;
       default:
         $scope.displayMin = true;
         $scope.displayMax = true;

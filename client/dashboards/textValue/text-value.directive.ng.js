@@ -25,11 +25,11 @@ angular.module('digitalsignageApp')
               break;
             case "on-off":
               if($scope.data.labels[$scope.data.labels.length-1] == "0"){
-                $scope.legend = "On";
-                $scope.iconOption = "zmdi-check-circle";
-              }else{
                 $scope.legend = "Off";
                 $scope.iconOption = "zmdi-circle-o";
+              }else{
+                $scope.legend = "On";
+                $scope.iconOption = "zmdi-power";
               }
               break;
             case "arrow":

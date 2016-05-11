@@ -14,7 +14,7 @@
         <img ng-src="{{image.url()}}" alt="Logo" width="100%">
       </div>
     </div>
-    <div class="dashboard-actions" layout="row" ng-if="!fullScreenMode && user" flex="none">
+    <div class="dashboard-actions" layout="row" ng-if="!fullScreenMode" flex="none">
       <md-button ng-click="addWidget()" aria-label="Add Widget">
         <md-icon md-svg-icon="content:ic_add_box_24px"></md-icon> Add Tile
       </md-button>
@@ -54,7 +54,7 @@
               <light-indicator ng-if="parametersReady" class="socials-card" data="parameters[tile.parameter].chartdata" tile="tile"></light-indicator>
             </div>
             <div ng-if="tile.visualization.type=='color-indicator'" class="tile-chart-container" flex layout-fill>
-              <color-indicator ng-if="parametersReady" class="socials-card" data="parameters[tile.parameter].chartdata"></color-indicator>
+              <color-indicator ng-if="parametersReady" class="socials-card" tile="tile" data="parameters[tile.parameter].chartdata"></color-indicator>
             </div>
             <div ng-if="tile.visualization.type=='progress-circle'" class="tile-chart-container" flex layout-fill>
               <progress-circle ng-if="parametersReady" class="socials-card" data="parameters[tile.parameter].chartdata" tile="tile"></progress-circle>

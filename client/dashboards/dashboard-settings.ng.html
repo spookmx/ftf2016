@@ -19,7 +19,7 @@
           <textarea ng-model="dashboard.description" md-maxlength="400" rows="4" md-select-on-focus></textarea>
         </md-input-container>
 
-        <div layout="row">
+        <div layout="row" ng-if="user">
           <md-whiteframe ng-hide="dashboard.logoReference || uploading || image" flex class="md-whiteframe-z1" layout="column">
               <div flex>
                   <div ngf-drop ngf-select

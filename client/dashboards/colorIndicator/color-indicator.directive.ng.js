@@ -6,6 +6,7 @@ angular.module('digitalsignageApp')
     restrict: 'E',
     templateUrl: 'client/dashboards/colorIndicator/color-indicator.view.ng.html',
     scope: {
+      tile: '=',
       data: '='
     },
     replace: true,
