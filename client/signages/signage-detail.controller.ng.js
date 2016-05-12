@@ -247,6 +247,7 @@ angular.module('digitalsignageApp')
       $scope.showVideoTimer = $timeout(function(){
         $scope.videoNew = "";
         $scope.videoNew = $scope.video.url();
+        console.log($scope.videoNew);
         $scope.showingVideo = true;
         $scope.$apply();
         $scope.videoPlayer = document.getElementById("video-player");

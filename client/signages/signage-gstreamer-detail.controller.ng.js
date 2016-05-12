@@ -235,6 +235,7 @@ angular.module('digitalsignageApp')
     if($scope.video){
       gs.send(JSON.stringify({"link": $scope.productionURL+$scope.video.url(),"width": "1280","height": "720","x": "83","y": "44"}));
       console.log("New video requested");
+      console.log(JSON.stringify({"link": $scope.productionURL+$scope.video.url(),"width": "1280","height": "720","x": "83","y": "44"}));
     }
   });
 
