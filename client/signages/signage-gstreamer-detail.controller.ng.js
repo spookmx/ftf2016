@@ -334,7 +334,7 @@ angular.module('digitalsignageApp')
   var ws = new WebSocket('ws://localhost:8765/');
   ws.onmessage = function(event) {
     var message = event.data.substr(0, event.data.lastIndexOf("}")+1);
-    attendee = JSON.parse(message);
+    var attendee = JSON.parse(message);
     console.log(attendee);
     $scope.attendee.uid == attendee.uid ? hideAgenda() : showAgenda(attendee);
   };
