@@ -24,12 +24,13 @@ angular.module('digitalsignageApp')
 
     if (banner._id){
       //If this is a previously saved card
+      var clone = angular.copy(banner);
       var target = banner._id;
-      delete banner._id;
+      delete clone._id;
       Banners.update({
         _id: target
       }, {
-        $set: banner
+        $set: clone
       }, function(error) {
         if(error) {
           console.error('Unable to update the banner');

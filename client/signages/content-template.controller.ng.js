@@ -93,12 +93,13 @@ angular.module('digitalsignageApp')
     }
     if (content._id){
       //If this is a previously saved card
+      var clone = angular.copy(content);
       var target = content._id;
-      delete content._id;
+      delete clone._id;
       Contents.update({
         _id: target
       }, {
-        $set: content
+        $set: clone
       }, function(error) {
         if(error) {
           console.error('Unable to update the content card');
