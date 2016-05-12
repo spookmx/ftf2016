@@ -78,10 +78,12 @@
                   </div>
               </div>
           </md-whiteframe>
-          <div flex ng-show="uploading && !tempVideo.isUploaded">
+          <div flex ng-show="uploading && !video.isUploaded()">
             Uploading...
+            {{ video.uploadProgress() }} %
+            <md-progress-linear md-mode="determinate" value="{{video.uploadProgress()}}"></md-progress-linear>
           </div>
-          <md-card flex ng-show="tempVideo.isUploaded || content.reference" class="md-image-container-sm">
+          <md-card flex ng-show="video.isUploaded()" class="md-image-container-sm">
             <video id="video-player" controls autoplay ng-src="{{video.url()}}" height="200">
               Your browser does not support the video tag.
             </video>
