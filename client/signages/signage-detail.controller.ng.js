@@ -191,7 +191,7 @@ angular.module('digitalsignageApp')
   ];
 
 
-  $scope.bannerInterval = $interval(changeBanner, 35000);
+  $scope.bannerInterval = $interval(changeBanner, 10000);
 
   function changeContent() {
     $scope.selectedContent = $scope.contents[$scope.selectedContentPosition]._id;
