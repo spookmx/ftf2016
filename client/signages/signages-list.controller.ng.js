@@ -53,9 +53,7 @@ angular.module('digitalsignageApp')
 
   $scope.subscribe('contents', function() {
     return [{
-      sort: $scope.getReactively('sort'),
-      limit: parseInt($scope.getReactively('perPage')),
-      skip: ((parseInt($scope.getReactively('page'))) - 1) * (parseInt($scope.getReactively('perPage')))
+      sort: $scope.getReactively('sort')
     }, $scope.getReactively('search')];
   });
 
