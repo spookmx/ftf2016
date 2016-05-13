@@ -10,8 +10,7 @@
         </span>
       </div>
 
-      <div flex="20">
-        <img ng-src="{{image.url()}}" alt="Logo" width="100%">
+      <div class="dashboard-logo" flex="20" ng-style="{'background-image':'url('+image.url()+')'}">
       </div>
     </div>
     <div class="dashboard-actions" layout="row" ng-if="!fullScreenMode" flex="none">

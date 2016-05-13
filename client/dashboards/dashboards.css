@@ -2,6 +2,9 @@
   padding: 2rem;
   color: #677178;
 }
+.dashboard-logo{
+  background-size: contain;
+}
 .dashboard-wrapper{
   padding: 1rem;
   background: white;
