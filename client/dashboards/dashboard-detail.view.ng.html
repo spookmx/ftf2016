@@ -2,7 +2,7 @@
   <div class="dashboard-wrapper md-whiteframe-1dp" layout="column" flex layout-fill>
     <div class="dashboard-header" layout="row" flex="">
 
-      <div flex="grow" layout="column">
+      <div flex="grow" layout="column" class="dashboard-info">
         <span class="md-display-1">{{dashboard.name}}</span>
         <small ng-if="!fullScreenMode">Last Updated: {{dashboard.lastUpdated | date:'medium'}}</small>
         <span>
