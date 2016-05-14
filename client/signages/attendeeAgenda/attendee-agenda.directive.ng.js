@@ -14,23 +14,30 @@ angular.module('digitalsignageApp')
       $http.get(requestURL)
       .then(function(response){
         $scope.loadingData = false;
-        $scope.sessions = response.data.agenda;
-        angular.forEach($scope.sessions, function(value, key) {
-          $scope.sessions[key].start = new Date($scope.sessions[key].start*1000);
-          $scope.sessions[key].end = new Date($scope.sessions[key].end*1000);
-          if($scope.sessions[key].start < new Date()){
-            delete $scope.sessions[key];
-          }
-          if($scope.sessions[key].name.length > 110 ){
-            $scope.sessions[key].name = $filter('limitTo')($scope.sessions[key].name, 110, 0);
-            $scope.sessions[key].name += "...";
-          }
-        });
-        $scope.sessions = $filter('orderBy')($scope.sessions, "start");
-        $scope.sessions = $filter('limitTo')($scope.sessions, 5, 0);
+        if(response.data.agenda){
+          $scope.message = "";
+          $scope.sessions = response.data.agenda;
+          angular.forEach($scope.sessions, function(value, key) {
+            $scope.sessions[key].start = new Date($scope.sessions[key].start*1000);
+            $scope.sessions[key].end = new Date($scope.sessions[key].end*1000);
+            if($scope.sessions[key].start < new Date()){
+              delete $scope.sessions[key];
+            }
+            if($scope.sessions[key].name.length > 110 ){
+              $scope.sessions[key].name = $filter('limitTo')($scope.sessions[key].name, 110, 0);
+              $scope.sessions[key].name += "...";
+            }
+          });
+          $scope.sessions = $filter('orderBy')($scope.sessions, "start");
+          $scope.sessions = $filter('limitTo')($scope.sessions, 5, 0);
+        }else{
+          $scope.message = "Sorry, we could not find any sessions on your agenda.";
+          $scope.sessions = [];
+        }
       }, function(error) {
         $scope.loadingData = false;
         $scope.message = "Sorry, we could not find any sessions on your agenda.";
+        $scope.sessions = [];
         console.log(error);
       });
     }else{

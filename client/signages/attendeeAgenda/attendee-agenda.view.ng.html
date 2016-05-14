@@ -1,10 +1,6 @@
-<div flex layout="column" class="md-whiteframe-1dp attendee-agenda-wrapper socials-card">
+<div flex layout="column" class="md-whiteframe-1dp attendee-agenda-wrapper fade-animation">
   <h1 class="attendee-agenda-header">{{ attendee.fullName }}'s Next Sessions</h1>
-  <div layout="row" layout-align="center center" ng-if="loadingData" class="socials-card">
-      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-      <span class="attendee-agenda-header">Loading agenda...</span>
-  </div>
-  <div ng-if="!loadingData" class="socials-card">
+  <div ng-if="!loadingData" class="fade-animation">
     <h4 class="attendee-agenda-message"> {{ message }} </h4>
     <md-list>
       <md-list-item class="md-3-line" ng-repeat="session in sessions">
@@ -16,5 +12,9 @@
         <md-divider ng-if="!$last"></md-divider>
       </md-list-item>
     </md-list>
+  </div>
+  <div layout="row" layout-align="center center" ng-if="loadingData" class="fade-animation">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    <span class="attendee-agenda-header">Loading agenda...</span>
   </div>
 </div>
