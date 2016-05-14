@@ -3,14 +3,14 @@
 
     <div class="signage-content-container" flex="75" layout="column">
       <div class="signage-content-inner md-whiteframe-1dp" flex layout="column">
-        <div imgcontainer url="{{imageNew}}" class="socials-card" ng-if="showingImage" flex></div>
-        <video id="video-player" ng-src="{{videoNew}}" class="socials-card video-full" ng-if="showingVideo" flex></video>
+        <div imgcontainer url="{{imageNew}}" class="fade-animation" ng-if="showingImage" flex></div>
+        <video id="video-player" ng-src="{{videoNew}}" class="fade-animation video-full" ng-if="showingVideo" flex></video>
         <attendee-agenda attendee="attendee" ng-if="showingAgenda"></attendee-agenda>
       </div>
     </div>
 
     <div flex="25" layout="column" class="signage-banner-container md-whiteframe-1dp">
-      <div ng-if="showingBanner" class="socials-card" flex layout-fill layout="column">
+      <div ng-if="showingBanner" class="fade-animation" flex layout-fill layout="column">
         <div ng-style="bannerNew" class="cover" flex layout-fill>
         </div>
       </div>
