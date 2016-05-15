@@ -25,6 +25,10 @@ if (Meteor.isServer) {
     }
   });
 
+  FS.HTTP.setHeadersForGet([
+  ['Cache-Control', 'public, max-age=31536000']
+]);
+
   Meteor.publish('videos', function() {
     return Videos.find({});
   });
