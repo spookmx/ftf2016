@@ -141,7 +141,7 @@ angular.module('digitalsignageApp')
     }
   }
 
-  $timeout(changeLayout, getRandomInt(15000,10000));
+  $timeout(changeLayout, getRandomInt(15000,10001));
 
   function changeLayout(){
     var targets = $scope.getSwappingTweets();
