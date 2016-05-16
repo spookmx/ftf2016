@@ -99,6 +99,48 @@ angular.module('digitalsignageApp')
     }
   });
 
+  // $scope.tweetProcessStarted = false;
+  // $scope.tweetCountReady = false;
+  //
+  // $scope.$watch('tweetsCount', function() {
+  //   if($scope.tweetsCount){
+  //     $scope.tweetCountReady = true;
+  //     !$scope.tweetProcessStarted ? startTweetRotation() : null;
+  //   }
+  // });
+  //
+  // $scope.$watchCollection('tweets', function() {
+  //   startTweetRotation();
+  // });
+  //
+  // function startTweetRotation(){
+  //   if($scope.tweetCountReady && $scope.tweets.length == $scope.tweetsCount){
+  //     $scope.tweetProcessStarted = true;
+  //     Object.keys($scope.tweetlist).forEach(function(value, key, map){
+  //       $scope.tweetlist[key].tweet = $scope.tweets[key].tweet;
+  //     });
+  //     $scope.tweetsCount > $scope.targetTweet ? $timeout(changeCard, getRandomInt(10000, 7000)) : null;
+  //   }
+  // }
+  //
+  // $scope.targetCard = 0;
+  // $scope.changingCard = false;
+  // $scope.targetTweet = 3;
+  // function changeCard() {
+  //   if($scope.changingCard){
+  //     $scope.tweetlist[$scope.targetCard].tweet = $scope.tweets[$scope.targetTweet].tweet;
+  //     $scope.tweetlist[$scope.targetCard].changing = false;
+  //     $scope.changingCard = false;
+  //     $scope.tweetsCount-1 > $scope.targetTweet ? $scope.targetTweet++ : $scope.targetTweet=0;
+  //     $scope.targetCard < 2 ? $scope.targetCard++ : $scope.targetCard=0;
+  //     $timeout(changeCard,  getRandomInt(10000, 7000));
+  //   }else{
+  //     $scope.tweetlist[$scope.targetCard].changing = true;
+  //     $scope.changingCard = true;
+  //     $timeout(changeCard, 500);
+  //   }
+  // }
+
   $scope.tweetProcessStarted = false;
   $scope.tweetCountReady = false;
 
@@ -109,18 +151,66 @@ angular.module('digitalsignageApp')
     }
   });
 
-  $scope.$watchCollection('tweets', function() {
+  $scope.tweetDeletedID = 0;
+  $scope.$watchCollection('tweets', function(current, previous) {
+    if(previous.length > current.length){
+      //Tweet removed
+      var found = false;
+      angular.forEach(previous, function(value, key) {
+        if(!found){
+          if(previous[key].tweet.id != current[key].tweet.id){
+            found = true;
+            $scope.tweetDeletedID = previous[key].tweet.id;
+            console.log("Removed tweet from: "+previous[key].tweet.user.screen_name);
+          }
+          if(key+1 == current.length){
+            found = true;
+            $scope.tweetDeletedID = previous[key].tweet.id;
+            console.log("Removed tweet from: "+previous[key+1].tweet.user.screen_name);
+          }
+        }
+      }, current);
+      angular.forEach($scope.tweetlist, function(value, key) {
+        if($scope.tweetlist[key].tweet.id == $scope.tweetDeletedID){
+          cancelTweetTimers();
+          $scope.tweetlist[$scope.targetCard].changing = false;
+          $scope.changingCard = false;
+          $scope.targetCard = key;
+          changeCard();
+        }
+      });
+    }
+    if(previous.length < current.length && $scope.tweetProcessStarted){
+      //Tweet Added
+      cancelTweetTimers();
+      $scope.tweetlist[$scope.targetCard].changing = false;
+      $scope.changingCard = false;
+      $scope.targetCard = getRandomInt(0, 2);
+      $scope.targetTweetBefore = $scope.targetTweet;
+      $scope.targetTweet = $scope.tweets.length-1;
+      changeCard();
+    }
     startTweetRotation();
   });
+  $scope.targetTweetBefore = 0;
 
   function startTweetRotation(){
-    if($scope.tweetCountReady && $scope.tweets.length == $scope.tweetsCount){
+    if($scope.tweetCountReady && $scope.tweets.length == $scope.tweetsCount && !$scope.tweetProcessStarted){
       $scope.tweetProcessStarted = true;
       Object.keys($scope.tweetlist).forEach(function(value, key, map){
         $scope.tweetlist[key].tweet = $scope.tweets[key].tweet;
       });
-      $scope.tweetsCount > $scope.targetTweet ? $timeout(changeCard, getRandomInt(10000, 7000)) : null;
+      if($scope.tweetsCount > $scope.targetTweet){
+        cancelTweetTimers();
+        $scope.changeCardTimer = $timeout(changeCard, getRandomInt(10000, 7000));
+      }
     }
+  }
+
+  function cancelTweetTimers(){
+    $timeout.cancel($scope.changeCardTimer);
+    $timeout.cancel($scope.showCardTimer);
+    $timeout.cancel($scope.hideCardTimer);
   }
 
   $scope.targetCard = 0;
@@ -131,15 +221,21 @@ angular.module('digitalsignageApp')
       $scope.tweetlist[$scope.targetCard].tweet = $scope.tweets[$scope.targetTweet].tweet;
       $scope.tweetlist[$scope.targetCard].changing = false;
       $scope.changingCard = false;
+      if($scope.targetTweetBefore){
+        $scope.targetTweet = $scope.targetTweetBefore-1;
+        $scope.targetTweetBefore = 0;
+      }
       $scope.tweetsCount-1 > $scope.targetTweet ? $scope.targetTweet++ : $scope.targetTweet=0;
       $scope.targetCard < 2 ? $scope.targetCard++ : $scope.targetCard=0;
-      $timeout(changeCard,  getRandomInt(10000, 7000));
+      $scope.hideCardTimer = $timeout(changeCard, getRandomInt(10000,7000));
     }else{
       $scope.tweetlist[$scope.targetCard].changing = true;
       $scope.changingCard = true;
-      $timeout(changeCard, 500);
+      $scope.showCardTimer = $timeout(changeCard, 500);
     }
   }
+
+  //Initial migration
 
   $timeout(changeLayout, getRandomInt(15000,10000));
 
@@ -240,6 +336,7 @@ angular.module('digitalsignageApp')
 
   $scope.$watch("video", function() {
     if($scope.video){
+
       $scope.videoPlayer ? $scope.videoPlayer.pause() : null;
       $scope.showingVideo = false;
       $scope.showingImage = false;
@@ -334,6 +431,7 @@ angular.module('digitalsignageApp')
   }
 
   function cancelTimers(){
+    console.log("cancelling timers");
     $timeout.cancel($scope.showImageTimer);
     $timeout.cancel($scope.showVideoTimer);
     $timeout.cancel($scope.changeInterval);
