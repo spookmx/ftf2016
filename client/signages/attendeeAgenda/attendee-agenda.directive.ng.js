@@ -10,7 +10,7 @@ angular.module('digitalsignageApp')
       var eid = "9a2b57983d9149b1ff9cedc66d5dde29";
       //The endpoint for the schedule per attendee on SpotMe API
       $scope.loadingData = true;
-      var requestURL = "http://97.79.186.153/api/v1/eid/"+eid+"/nodehandlers/nxpnfc/schedule?key=Xj6Za32pCb&participant_id="+$scope.attendee.uid;
+      var requestURL = "https://maria.spotme.com/api/v1/eid/"+eid+"/nodehandlers/nxpnfc/schedule?key=Xj6Za32pCb&participant_id="+$scope.attendee.uid;
       $http.get(requestURL)
       .then(function(response){
         $scope.loadingData = false;
