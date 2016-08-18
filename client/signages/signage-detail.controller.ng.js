@@ -19,6 +19,8 @@ angular.module('digitalsignageApp')
   $scope.IsBannersReady = false;
   $scope.showing = true;
 
+  $scope.currentTime = new Date();
+
   $scope.subscribe('signages', () => {return []}, {
     onReady: function () {
       signagesReady();
@@ -192,6 +194,32 @@ angular.module('digitalsignageApp')
 
 
   $scope.bannerInterval = $interval(changeBanner, 10000);
+
+  $scope.changeCurrentTime = $interval(changeTime, 1000);
+
+  function changeTime(){
+    $scope.currentTime = new Date();
+  }
+
+  $scope.$watchCollection('contents', function(current, previous) {
+    if($scope.contents[0]){
+      //console.log($scope.contents);
+    }
+  });
+
+  function changeContent() {
+    if($scope.contents[0]){
+      if($scope.selectedContent == $scope.contents[$scope.selectedContentPosition]._id){
+        $scope.selectedContentPosition + 1 == $scope.contents.length ? $scope.selectedContentPosition = 0 : $scope.selectedContentPosition++;
+        $timeout(changeContent, 1);
+      }else{
+        $scope.selectedContent = $scope.contents[$scope.selectedContentPosition]._id;
+        $scope.selectedContentPosition + 1 == $scope.contents.length ? $scope.selectedContentPosition = 0 : $scope.selectedContentPosition++;
+      }
+    }else{
+      $timeout(changeContent, 1);
+    }
+  }
 
   function changeContent() {
     $scope.selectedContent = $scope.contents[$scope.selectedContentPosition]._id;
