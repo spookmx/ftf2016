@@ -18,6 +18,7 @@ angular.module('digitalsignageApp')
   $scope.IsVideosReady = false;
   $scope.IsBannersReady = false;
   $scope.showing = true;
+  $scope.currentTime = new Date();
 
   $scope.subscribe('signages', () => {return []}, {
     onReady: function () {
@@ -54,10 +55,13 @@ angular.module('digitalsignageApp')
         {
           $and:[
             {
-              startDate: {$lte: new Date()}
+              startDate: {$lte: $scope.getReactively('currentTime')}
             },
             {
-              endDate: {$gt: new Date()}
+              endDate: {$gt: $scope.getReactively('currentTime')}
+            },
+            {
+              temporary: true
             }
           ]
         }
@@ -99,47 +103,7 @@ angular.module('digitalsignageApp')
     }
   });
 
-  // $scope.tweetProcessStarted = false;
-  // $scope.tweetCountReady = false;
-  //
-  // $scope.$watch('tweetsCount', function() {
-  //   if($scope.tweetsCount){
-  //     $scope.tweetCountReady = true;
-  //     !$scope.tweetProcessStarted ? startTweetRotation() : null;
-  //   }
-  // });
-  //
-  // $scope.$watchCollection('tweets', function() {
-  //   startTweetRotation();
-  // });
-  //
-  // function startTweetRotation(){
-  //   if($scope.tweetCountReady && $scope.tweets.length == $scope.tweetsCount){
-  //     $scope.tweetProcessStarted = true;
-  //     Object.keys($scope.tweetlist).forEach(function(value, key, map){
-  //       $scope.tweetlist[key].tweet = $scope.tweets[key].tweet;
-  //     });
-  //     $scope.tweetsCount > $scope.targetTweet ? $timeout(changeCard, getRandomInt(10000, 7000)) : null;
-  //   }
-  // }
-  //
-  // $scope.targetCard = 0;
-  // $scope.changingCard = false;
-  // $scope.targetTweet = 3;
-  // function changeCard() {
-  //   if($scope.changingCard){
-  //     $scope.tweetlist[$scope.targetCard].tweet = $scope.tweets[$scope.targetTweet].tweet;
-  //     $scope.tweetlist[$scope.targetCard].changing = false;
-  //     $scope.changingCard = false;
-  //     $scope.tweetsCount-1 > $scope.targetTweet ? $scope.targetTweet++ : $scope.targetTweet=0;
-  //     $scope.targetCard < 2 ? $scope.targetCard++ : $scope.targetCard=0;
-  //     $timeout(changeCard,  getRandomInt(10000, 7000));
-  //   }else{
-  //     $scope.tweetlist[$scope.targetCard].changing = true;
-  //     $scope.changingCard = true;
-  //     $timeout(changeCard, 500);
-  //   }
-  // }
+
 
   $scope.tweetProcessStarted = false;
   $scope.tweetCountReady = false;
@@ -289,9 +253,31 @@ angular.module('digitalsignageApp')
 
   $scope.bannerInterval = $interval(changeBanner, 10000);
 
+  $scope.changeCurrentTime = $interval(changeTime, 1000);
+
+  function changeTime(){
+    $scope.currentTime = new Date();
+  }
+
+  $scope.$watchCollection('contents', function(current, previous) {
+    if($scope.contents[0]){
+      //console.log($scope.contents);
+    }
+
+  });
+
   function changeContent() {
-    $scope.selectedContent = $scope.contents[$scope.selectedContentPosition]._id;
-    $scope.selectedContentPosition + 1 == $scope.contents.length ? $scope.selectedContentPosition = 0 : $scope.selectedContentPosition++;
+    if($scope.contents[0]){
+      if($scope.selectedContent == $scope.contents[$scope.selectedContentPosition]._id){
+        $scope.selectedContentPosition + 1 == $scope.contents.length ? $scope.selectedContentPosition = 0 : $scope.selectedContentPosition++;
+        $timeout(changeContent, 1);
+      }else{
+        $scope.selectedContent = $scope.contents[$scope.selectedContentPosition]._id;
+        $scope.selectedContentPosition + 1 == $scope.contents.length ? $scope.selectedContentPosition = 0 : $scope.selectedContentPosition++;
+      }
+    }else{
+      $timeout(changeContent, 500);
+    }
   }
 
 
@@ -336,7 +322,7 @@ angular.module('digitalsignageApp')
 
   $scope.$watch("video", function() {
     if($scope.video){
-
+      console.log($scope.video);
       $scope.videoPlayer ? $scope.videoPlayer.pause() : null;
       $scope.showingVideo = false;
       $scope.showingImage = false;
@@ -344,12 +330,13 @@ angular.module('digitalsignageApp')
       $scope.showVideoTimer = $timeout(function(){
         $scope.videoNew = "";
         $scope.videoNew = $scope.video.url();
-        console.log($scope.videoNew);
         $scope.showingVideo = true;
         $scope.$apply();
         $scope.videoPlayer = document.getElementById("video-player");
         $scope.videoPlayer.play();
       }, 500);
+    }else{
+      console.log("vacio");
     }
   });
 

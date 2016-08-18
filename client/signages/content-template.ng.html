@@ -24,8 +24,18 @@
             Temporary
           </md-checkbox>
           <div layout="row" ng-if="content.temporary">
-            <md-datepicker required ng-model="content.startDate" md-placeholder="Start Date"></md-datepicker>
-            <md-datepicker required md-min-date="endDateMin" ng-model="content.endDate" md-placeholder="End Date"></md-datepicker>
+            <form name="temporaryForm">
+              <md-input-container class="md-block md-icon-float md-icon-left">
+                <label>Start</label>
+                <md-icon md-svg-icon="action:ic_date_range_24px" aria-label="Time"></md-icon>
+                <input name="startDate" ng-model="content.startDate" type="datetime-local" class="">
+              </md-input-container>
+              <md-input-container class="md-block md-icon-float md-icon-left">
+                <label>End</label>
+                <md-icon md-svg-icon="action:ic_date_range_24px" aria-label="Time"></md-icon>
+                <input name="endDate" ng-model="content.endDate" type="datetime-local" min="{{content.startDate | date:'yyyy-MM-ddTHH:mm:ss'}}">
+              </md-input-container>
+            </form>
           </div>
         </div>
         <md-input-container class="md-block">
@@ -88,6 +98,9 @@
               Your browser does not support the video tag.
             </video>
             <md-card-actions layout="row" layout-align="end center">
+              <div flex layout="row" layout-align="start center">
+                {{video.original.name}}
+              </div>
               <md-button ng-click="removeVideo()" class="md-warn">
                 <md-icon md-svg-icon="action:ic_delete_24px"></md-icon> Remove
               </md-button>

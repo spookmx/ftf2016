@@ -45,6 +45,7 @@ angular.module('digitalsignageApp')
     if($scope.content.temporary){
       if(!$scope.content.startDate){
         $scope.content.startDate = new Date();
+        $scope.content.startDate.setHours(0,0,0,0);
         $scope.content.endDate = new Date(
           $scope.content.startDate.getFullYear(),
           $scope.content.startDate.getMonth(),
