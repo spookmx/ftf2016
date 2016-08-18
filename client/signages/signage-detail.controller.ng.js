@@ -56,10 +56,13 @@ angular.module('digitalsignageApp')
         {
           $and:[
             {
-              startDate: {$lte: new Date()}
+              startDate: {$lte: $scope.getReactively('currentTime')}
             },
             {
-              endDate: {$gt: new Date()}
+              endDate: {$gt: $scope.getReactively('currentTime')}
+            },
+            {
+              temporary: true
             }
           ]
         }
@@ -203,7 +206,7 @@ angular.module('digitalsignageApp')
 
   $scope.$watchCollection('contents', function(current, previous) {
     if($scope.contents[0]){
-      //console.log($scope.contents);
+      console.log($scope.contents);
     }
   });
 
