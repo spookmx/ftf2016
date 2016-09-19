@@ -1,8 +1,9 @@
 'use strict'
 
 angular.module('digitalsignageApp')
-.controller('SignageDetailCtrl', function($scope, $rootScope, $stateParams, $interval, $reactive, $timeout, $mdToast, $http, $sce) {
+.controller('SignageChinaDetailCtrl', function($scope, $rootScope, $stateParams, $interval, $reactive, $timeout, $mdToast, $http, $sce) {
   if($stateParams.debug){
+    //Date Preset
     $stateParams.date ? $scope.currentTime = new Date($stateParams.date) : $scope.currentTime = new Date();
     if($scope.currentTime == "Invalid Date"){
       $scope.currentTime = new Date();
@@ -27,7 +28,6 @@ angular.module('digitalsignageApp')
   }
 
   $scope.selectedContent="";
-  $scope.selectedContentPosition= 0;
 
   $scope.selectedBanner="";
   $scope.selectedBannerPosition= 0;
@@ -42,6 +42,48 @@ angular.module('digitalsignageApp')
   $scope.IsVideosReady = false;
   $scope.IsBannersReady = false;
   $scope.showing = true;
+
+  // $http({
+  //   data:"",
+  //   method: "GET",
+  //   url: "/error.mp3",
+  //   headers:{
+  //     "Cache-Control": function(){ return null},
+  //     "Accept-Encoding": function(){ return null},
+  //   }
+  // })
+  // .then(function successCallback(response) {
+  //   var blob = new Blob( [ response.data ], { type: "audio/mp3" } );
+  //   var urlCreator = window.URL || window.webkitURL;
+  //   var audioUrl = urlCreator.createObjectURL(blob);
+  //   $rootScope.audioError = new Audio(audioUrl);
+  //   $rootScope.audioError.play();
+  // }, function errorCallback(response) {
+  //   console.error("Error getting the error audio", response);
+  // });
+  $rootScope.audioError = new Audio("/error.mp3");
+  $rootScope.audioError.play();
+
+  // $http({
+  //   data:"",
+  //   method: "GET",
+  //   url: "/success.mp3",
+  //   headers:{
+  //     "Cache-Control": function(){ return null},
+  //     "Accept-Encoding": function(){ return null},
+  //   }
+  // })
+  // .then(function successCallback(response) {
+  //   var blob = new Blob( [ response.data ], { type: "audio/mp3" } );
+  //   var urlCreator = window.URL || window.webkitURL;
+  //   var audioUrl = urlCreator.createObjectURL(blob);
+  //   $rootScope.audioSuccess = new Audio(audioUrl);
+  //   $rootScope.audioSuccess.play();
+  // }, function errorCallback(response) {
+  //   console.error("Error getting the success audio", response);
+  // });
+  $rootScope.audioSuccess = new Audio("/success.mp3");
+  $rootScope.audioSuccess.play();
 
   $scope.subscribe('signages', () => {return []}, {
     onReady: function () {
@@ -89,7 +131,7 @@ angular.module('digitalsignageApp')
           ]
         }
       ]},{
-        sort: {name : 1}
+        sort: {sort : 1}
       });
     },
     content: () =>{
@@ -111,112 +153,6 @@ angular.module('digitalsignageApp')
       return Images.findOne({ _id: $scope.getReactively('selectedBannerImage') });
     }
   });
-
-  $scope.subscribe('selectedtweets', () => {return []}, {
-    onReady: function () {
-    }
-  });
-
-  $scope.helpers({
-    tweets: () => {
-      return Selectedtweets.find({});
-    },
-    tweetsCount: () => {
-      return Counts.get('numberOfSelectedtweets');
-    }
-  });
-
-  $scope.tweetProcessStarted = false;
-  $scope.tweetCountReady = false;
-
-  $scope.$watch('tweetsCount', function() {
-    if($scope.tweetsCount){
-      $scope.tweetCountReady = true;
-      !$scope.tweetProcessStarted ? startTweetRotation() : null;
-    }
-  });
-
-  $scope.$watchCollection('tweets', function() {
-    startTweetRotation();
-  });
-
-  function startTweetRotation(){
-    if($scope.tweetCountReady && $scope.tweets.length == $scope.tweetsCount){
-      $scope.tweetProcessStarted = true;
-      Object.keys($scope.tweetlist).forEach(function(value, key, map){
-        $scope.tweetlist[key].tweet = $scope.tweets[key].tweet;
-      });
-      $scope.tweetsCount > $scope.targetTweet ? $timeout(changeCard, getRandomInt(10000, 7000)) : null;
-    }
-  }
-
-  $scope.targetCard = 0;
-  $scope.changingCard = false;
-  $scope.targetTweet = 3;
-  function changeCard() {
-    if($scope.changingCard){
-      $scope.tweetlist[$scope.targetCard].tweet = $scope.tweets[$scope.targetTweet].tweet;
-      $scope.tweetlist[$scope.targetCard].changing = false;
-      $scope.changingCard = false;
-      $scope.tweetsCount-1 > $scope.targetTweet ? $scope.targetTweet++ : $scope.targetTweet=0;
-      $scope.targetCard < 2 ? $scope.targetCard++ : $scope.targetCard=0;
-      $timeout(changeCard,  getRandomInt(10000, 7000));
-    }else{
-      $scope.tweetlist[$scope.targetCard].changing = true;
-      $scope.changingCard = true;
-      $timeout(changeCard, 500);
-    }
-  }
-
-  $timeout(changeLayout, getRandomInt(15000,10000));
-
-  function changeLayout(){
-    var targets = $scope.getSwappingTweets();
-    $scope.tweetlist[targets[0]._id].row = 1;
-    $scope.tweetlist[targets[1]._id].row = 2;
-    $timeout(changeLayout, getRandomInt(15000,10000));
-  }
-
-  $scope.getSwappingTweets = function(){
-    var tweetsWith2 = [];
-    angular.forEach($scope.tweetlist, function(value, key) {
-      if (value.row == 2) {
-          tweetsWith2.push(value);
-      }
-    });
-    var targets = [];
-    targets[0] = tweetsWith2[0];
-    var tweetsWith1 = [];
-    angular.forEach($scope.tweetlist, function(value, key) {
-      if (value.row == 1) {
-          tweetsWith1.push(value);
-      }
-    });
-    var t3n = getRandomInt(2,0);
-    targets[1] = tweetsWith1[t3n];
-    return targets;
-  };
-
-  function getRandomInt(max, min) {
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
-
-  $scope.tweetlist =[
-    {
-      _id:0,
-      changing: false,
-      row:1
-    },{
-      _id:1,
-      changing: false,
-      row:2
-    },{
-      _id:2,
-      changing: false,
-      row:1
-    }
-  ];
-
 
   $scope.bannerInterval = $interval(changeBanner, 10000);
 
@@ -288,26 +224,38 @@ angular.module('digitalsignageApp')
 
   $scope.$watch("video", function() {
     if($scope.video){
-      $http(requestVideoObject($scope.selectedVideo))
-      .then(function successCallback(response) {
-        $scope.videoPlayer ? $scope.videoPlayer.pause() : null;
-        $scope.showingVideo = false;
-        $scope.showingImage = false;
-        var blob = new Blob( [ response.data ], { type: "video/mp4" } );
-        var urlCreator = window.URL || window.webkitURL;
-        var videoUrl = urlCreator.createObjectURL(blob);
-        $timeout.cancel($scope.showVideoTimer);
-        $scope.showVideoTimer = $timeout(function(){
-          $scope.videoNew = "";
-          $scope.videoNew = trustSrc(videoUrl);
-          $scope.showingVideo = true;
-          $scope.$apply();
-          $scope.videoPlayer = document.getElementById("video-player");
-          $scope.videoPlayer.play();
-        }, 500);
-      }, function errorCallback(response) {
-        console.error("Error getting the video", response);
-      });
+      $scope.videoPlayer ? $scope.videoPlayer.pause() : null;
+      $scope.showingVideo = false;
+      $scope.showingImage = false;
+      $timeout.cancel($scope.showVideoTimer);
+      $scope.showVideoTimer = $timeout(function(){
+        $scope.videoNew = "";
+        $scope.videoNew = $scope.video.url({auth:false});
+        $scope.showingVideo = true;
+        $scope.$apply();
+        $scope.videoPlayer = document.getElementById("video-player");
+        $scope.videoPlayer.play();
+      }, 500);
+      // $http(requestVideoObject($scope.selectedVideo))
+      // .then(function successCallback(response) {
+      //   $scope.videoPlayer ? $scope.videoPlayer.pause() : null;
+      //   $scope.showingVideo = false;
+      //   $scope.showingImage = false;
+      //   var blob = new Blob( [ response.data ], { type: "video/mp4" } );
+      //   var urlCreator = window.URL || window.webkitURL;
+      //   var videoUrl = urlCreator.createObjectURL(blob);
+      //   $timeout.cancel($scope.showVideoTimer);
+      //   $scope.showVideoTimer = $timeout(function(){
+      //     $scope.videoNew = "";
+      //     $scope.videoNew = trustSrc(videoUrl);
+      //     $scope.showingVideo = true;
+      //     $scope.$apply();
+      //     $scope.videoPlayer = document.getElementById("video-player");
+      //     $scope.videoPlayer.play();
+      //   }, 500);
+      // }, function errorCallback(response) {
+      //   console.error("Error getting the video", response);
+      // });
     }
   });
 
@@ -350,6 +298,20 @@ angular.module('digitalsignageApp')
 
   function contentsReady(){
     $scope.IsContentsReady = true;
+    if($stateParams.slide){
+      angular.forEach($scope.contents, (content, index)=>{
+        content._id == $stateParams.slide ? $scope.initialSlide = index : null;
+      });
+      if(!$scope.initialSlide){
+        $scope.selectedContentPosition = 0;
+        console.error("Specified slide is not within the range of content");
+      }else {
+        $scope.selectedContentPosition = $scope.initialSlide;
+      }
+      console.log("Slide: ",$stateParams.slide,"Index: ", $scope.selectedContentPosition);
+    }else{
+      $scope.selectedContentPosition = 0;
+    }
     allCollectionsReady() ? changeContent() : null;
   }
 
@@ -456,12 +418,14 @@ angular.module('digitalsignageApp')
 
   function requestVideoObject(reference){
     var myVideoRequest = {
+      data:"",
       method: "GET",
       url: Videos.findOne({_id:reference}).url({auth:false}),
-      responseType: "video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5",
       headers:{
-        'Cache-Control': 'public, max-age=31536000',
-        'Accept': "video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5"
+        "Cache-Control": function(){ return null},
+        "Accept-Encoding": function(){ return null},
+        "Accept": "video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5",
+        "Range": "bytes=0-"
       }
     };
     return myVideoRequest;
@@ -520,6 +484,7 @@ angular.module('digitalsignageApp')
     var message = event.data.substr(0, event.data.lastIndexOf("}")+1);
     message = JSON.parse(message);
     if(message.Exception){
+      $rootScope.audioError.play();
       console.error("Tag not read properly");
     }else{
       var vcard = parseHex(message.Records[0].PayloadHex);
@@ -528,7 +493,6 @@ angular.module('digitalsignageApp')
       attendee.uid = vcard.uid;
       var name = vcard.n.split(";");
       attendee.fullName = name[1]+" "+name[0];
-      console.log(attendee);
       $scope.attendee.uid == attendee.uid ? hideAgenda() : showAgenda(attendee);
     }
   };

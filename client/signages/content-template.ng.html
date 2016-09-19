@@ -19,6 +19,10 @@
           <label>Duration</label>
           <input ng-disabled="durationDisabled" aria-label="Duration" min="1" type="number" step="1" ng-model="content.duration">
         </md-input-container>
+        <md-input-container>
+          <label>Sort</label>
+          <input aria-label="Sort" min="0" type="number" step="1" ng-model="content.sort">
+        </md-input-container>
         <div layout="column">
           <md-checkbox ng-model="content.temporary" aria-label="Temporary">
             Temporary

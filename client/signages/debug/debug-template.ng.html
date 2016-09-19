@@ -1,0 +1,6 @@
+<md-toast>
+  <span><md-icon class="connection-status" ng-class="status.status" md-svg-icon="action:ic_settings_ethernet_24px"></md-icon> {{ status.status | uppercase}} &nbsp;|&nbsp;</span>
+  <span ng-if="overrideTimeValid">{{ currentTime | date:'short' }} &nbsp;|&nbsp;</span>
+  <span> Banner Pre-load {{ preLoadBannersCompleted }}% &nbsp;|&nbsp;</span>
+  <span> Content Pre-load {{ preLoadContentsCompleted }}% &nbsp;|&nbsp;</span>
+</md-toast>

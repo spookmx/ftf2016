@@ -1,0 +1,15 @@
+.connection-status.connected{
+  fill: green;
+}
+.connection-status.connecting{
+  fill: yellow;
+}
+.connection-status.failed{
+  fill: red;
+}
+.connection-status.waiting{
+  fill: orange;
+}
+.connection-status.offline{
+  fill: grey;
+}

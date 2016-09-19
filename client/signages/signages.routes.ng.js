@@ -14,9 +14,14 @@ angular.module('digitalsignageApp')
     }
   })
   .state('signage-detail', {
-    url: '/signages/:signageId?signageLocation',
+    url: '/signages/:signageId?debug&date&slide',
     templateUrl: 'client/signages/signage-detail.view.ng.html',
     controller: 'SignageDetailCtrl',
+  })
+  .state('signage-detail-china', {
+    url: '/signages/china/:signageId?debug&date&slide',
+    templateUrl: 'client/signages/signage-china-detail.view.ng.html',
+    controller: 'SignageChinaDetailCtrl',
   })
   .state('signage-detail-gstreamer', {
     url: '/signages/gstreamer/:signageId',

@@ -19,7 +19,7 @@ angular.module('digitalsignageApp')
     },
     contents: function() {
       return Contents.find({}, {
-        sort: {name : 1}
+        sort: {sort : 1}
       });
     },
     contentsCount: function() {
@@ -154,6 +154,14 @@ angular.module('digitalsignageApp')
         break;
     }
     Contents.remove({_id: content._id});
+  };
+
+  $scope.copyContent = function(content) {
+    var newContent = {};
+    angular.copy(content, newContent);
+    delete newContent._id;
+    newContent.name += " (Copy)";
+    Contents.insert(newContent);
   };
 
   $scope.addContent = function(){

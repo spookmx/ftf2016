@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('digitalsignageApp')
-.controller('attendeeAgendaController', ['$scope','$http','$filter', function($scope, $http, $filter) {
+.controller('attendeeAgendaController', ['$scope','$http','$filter', '$rootScope', function($scope, $http, $filter, $rootScope) {
 
   $scope.$watch('attendee', function() {
     //Assuming cn is the field where the confirmation number is stored on the VCard
@@ -10,10 +10,15 @@ angular.module('digitalsignageApp')
       var eid = "9a2b57983d9149b1ff9cedc66d5dde29";
       //The endpoint for the schedule per attendee on SpotMe API
       $scope.loadingData = true;
-      var requestURL = "http://97.79.186.153/api/v1/eid/"+eid+"/nodehandlers/nxpnfc/schedule?key=Xj6Za32pCb&participant_id="+$scope.attendee.uid;
+
+      $rootScope.audioSuccess.play();
+
+      //var requestURL = "http://97.79.186.153/api/v1/eid/"+eid+"/nodehandlers/nxpnfc/schedule?key=Xj6Za32pCb&participant_id="+$scope.attendee.uid;
+      var requestURL = "http://www.mocky.io/v2/57cef555260000a80564fef9";
       $http.get(requestURL)
       .then(function(response){
         $scope.loadingData = false;
+        console.log(response);
         if(response.data.agenda){
           $scope.message = "";
           $scope.sessions = response.data.agenda;

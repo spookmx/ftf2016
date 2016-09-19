@@ -26,7 +26,8 @@ if (Meteor.isServer) {
   });
 
   FS.HTTP.setHeadersForGet([
-  ['Cache-Control', 'public, max-age=31536000']
+  ['Cache-Control', 'public, max-age=31536000'],
+  ['Expires', 'Sat, 31 Dec 2033 04:20:00 GMT']
 ]);
 
   Meteor.publish('videos', function() {

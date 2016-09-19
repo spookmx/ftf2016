@@ -1,0 +1,35 @@
+<div layout="row" flex layout-fill class="signage-detail-china">
+  <div flex="5">
+  </div>
+
+  <div layout="column" flex="90" layout-fill>
+
+    <div flex="15" layout="column" layout-align="center center">
+      <img src="/chinaHeader.png">
+    </div>
+
+    <div class="signage-content-container-china" flex="60" layout="column">
+      <div class="signage-content-inner md-whiteframe-1dp" flex layout="column">
+        <div imgcontainer url="{{imageNew}}" class="fade-animation" ng-if="showingImage" flex></div>
+        <video id="video-player" ng-src="{{videoNew}}" class="fade-animation video-full" ng-if="showingVideo" flex></video>
+        <attendee-agenda attendee="attendee" ng-if="showingAgenda"></attendee-agenda>
+      </div>
+    </div>
+
+    <div flex="5">
+    </div>
+
+    <div flex="15" layout="column" class="signage-banner-container md-whiteframe-1dp">
+      <div ng-if="showingBanner" class="fade-animation" flex layout-fill layout="column">
+        <img ng-src="{{bannerNew}}" class="cover" flex layout-fill>
+      </div>
+    </div>
+
+    <div flex="5">
+    </div>
+
+  </div>
+
+  <div flex="5">
+  </div>
+</div>

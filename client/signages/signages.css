@@ -2,6 +2,10 @@
   margin: 3px 0 0 10px;
 }
 
+.md-secondary-2{
+  margin-right: 42px!important;
+}
+
 .signage-detail{
   overflow-x: hidden;
   overflow-y: hidden;
@@ -9,9 +13,16 @@
   padding: 1rem;
 }
 
+.signage-detail-china{
+  overflow-x: hidden;
+  overflow-y: hidden;
+  cursor: none;
+}
+
 .signage-content-container{
   padding-bottom: 1rem;
 }
+
 
 .signage-content-inner{
   background: rgba(255,255,255,.7);
@@ -20,6 +31,11 @@
 .signage-banner-container{
   background: rgba(255,255,255,.7);
 }
+
+.signage-branding-container{
+  background: rgba(255,255,255,.7);
+}
+
 .video-full{
   object-fit: fill;
 }

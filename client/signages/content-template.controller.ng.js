@@ -170,7 +170,8 @@ angular.module('digitalsignageApp')
     }
   };
   $scope.removeVideo = function() {
-    Videos.remove({_id:$scope.videoId});
+    var contentsReference = Contents.find({reference:$scope.videoId}).fetch();
+    contentsReference.length > 1 ? null : Videos.remove({_id:$scope.videoId});
     if($scope.tempVideo){
       delete $scope.tempVideo;
       $scope.videoId = '';
